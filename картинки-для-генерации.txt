@@ -1,0 +1,33 @@
+КАРТИНКИ ДЛЯ САЙТА YVE
+
+Первый экран картинки не требует: оливковый фон, зерно и капсула нарисованы кодом.
+Готовые файлы кладутся в site/img/ под именами ниже. Пока файла нет, на его месте оливковый градиент.
+
+НЕ ГЕНЕРИРОВАТЬ: фото врача и интерьера. Только реальные фотографии клиники (doctor.jpg, 4:5, от 1200 px по длинной стороне).
+Сгенерированный «врач» или «интерьер» вводит пациента в заблуждение. Фото «до/после» и лица с «результатом» тоже не нужны: ст. 24 ФЗ «О рекламе».
+
+Общий хвост, добавлять в конец каждого промпта:
+editorial still life photography, quiet luxury, muted olive and khaki palette with ivory highlights, soft diffused daylight, subtle film grain, shallow depth of field, calm and minimal, no text, no logos, no hands with gloves, no needles
+
+
+1. dir-inject.jpg — Инъекционная косметология, вертикаль 4:5
+Macro photograph of clear hyaluronic gel with tiny suspended air bubbles, a glossy droplet stretching between two sheets of glass, translucent and refractive, olive green gradient background
+
+2. dir-device.jpg — Аппаратная косметология, вертикаль 4:5
+A narrow beam of warm golden light passing through a polished glass prism on pale travertine stone, soft caustic reflections, long olive shadows, dark khaki background
+
+3. dir-care.jpg — Эстетика лица, вертикаль 4:5
+A swatch of silky ivory cream texture and three drops of amber serum on a pale travertine slab, a few dried white hydrangea petals, gentle side light, olive linen in the background
+
+4. dir-hair.jpg — Трихология, вертикаль 4:5
+Close-up of glossy dark brown hair strands backlit by low golden evening sun, individual strands glowing, blurred olive foliage behind, no face visible
+
+5. dir-iv.jpg — Капельницы, вертикаль 4:5
+A clear glass bottle with transparent liquid and a thin clear tube catching morning sunlight, sparkling caustic reflections on ivory linen, minimal composition, olive shadows
+
+6. dir-laser.jpg — Лазерная эпиляция, вертикаль 4:5
+Bare shoulder and collarbone of a woman in soft side light, natural skin texture, draped ivory linen, olive background, face out of frame, calm and elegant
+
+7. og.jpg — превью ссылки в мессенджерах, горизонталь 1200×630
+Shadow of a dried palm leaf falling across a warm ivory plaster wall, olive and khaki tones, generous empty space on the left side for a logo
+
