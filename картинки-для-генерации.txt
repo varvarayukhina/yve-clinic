@@ -1,33 +1,34 @@
-КАРТИНКИ ДЛЯ САЙТА YVE
+КАРТИНКИ ДЛЯ САЙТА YVE (ChatGPT, по одной на запрос)
 
-Первый экран картинки не требует: оливковый фон, зерно и капсула нарисованы кодом.
-Готовые файлы кладутся в site/img/ под именами ниже. Пока файла нет, на его месте оливковый градиент.
+Готовые файлы кладутся в site/img/ под именами ниже.
+Фото врача и интерьера НЕ генерировать — только реальные (doctor.jpg, 4:5).
 
-НЕ ГЕНЕРИРОВАТЬ: фото врача и интерьера. Только реальные фотографии клиники (doctor.jpg, 4:5, от 1200 px по длинной стороне).
-Сгенерированный «врач» или «интерьер» вводит пациента в заблуждение. Фото «до/после» и лица с «результатом» тоже не нужны: ст. 24 ФЗ «О рекламе».
+Хвост — добавлять в конец промптов 1–7:
+editorial still life photography for a premium cosmetology clinic, quiet luxury, soft natural daylight, warm neutral palette of ivory, sand and soft taupe, subtle film grain, shallow depth of field, minimal composition, no text, no logos, no needles, no gloves
 
-Общий хвост, добавлять в конец каждого промпта:
-editorial still life photography, quiet luxury, muted olive and khaki palette with ivory highlights, soft diffused daylight, subtle film grain, shallow depth of field, calm and minimal, no text, no logos, no hands with gloves, no needles
+1. dir-inject.jpg — вертикаль 4:5
+Macro photograph of clear hyaluronic gel with tiny suspended air bubbles, a glossy droplet stretching between two sheets of glass, translucent and refractive
 
+2. dir-device.jpg — вертикаль 4:5
+A narrow beam of warm golden light passing through a polished glass prism on pale travertine stone, soft caustic reflections, long shadows
 
-1. dir-inject.jpg — Инъекционная косметология, вертикаль 4:5
-Macro photograph of clear hyaluronic gel with tiny suspended air bubbles, a glossy droplet stretching between two sheets of glass, translucent and refractive, olive green gradient background
+3. dir-care.jpg — вертикаль 4:5
+A swatch of silky ivory cream texture and three drops of amber serum on a pale travertine slab, a few dried white hydrangea petals, gentle side light
 
-2. dir-device.jpg — Аппаратная косметология, вертикаль 4:5
-A narrow beam of warm golden light passing through a polished glass prism on pale travertine stone, soft caustic reflections, long olive shadows, dark khaki background
+4. dir-hair.jpg — вертикаль 4:5
+Close-up of glossy dark brown hair strands backlit by low golden evening sun, individual strands glowing, no face visible
 
-3. dir-care.jpg — Эстетика лица, вертикаль 4:5
-A swatch of silky ivory cream texture and three drops of amber serum on a pale travertine slab, a few dried white hydrangea petals, gentle side light, olive linen in the background
+5. dir-iv.jpg — вертикаль 4:5
+A clear glass bottle with transparent liquid and a thin clear tube catching morning sunlight, sparkling caustic reflections on ivory linen
 
-4. dir-hair.jpg — Трихология, вертикаль 4:5
-Close-up of glossy dark brown hair strands backlit by low golden evening sun, individual strands glowing, blurred olive foliage behind, no face visible
+6. dir-laser.jpg — вертикаль 4:5
+Bare shoulder and collarbone of a woman in soft side light, natural skin texture, draped ivory linen, face out of frame
 
-5. dir-iv.jpg — Капельницы, вертикаль 4:5
-A clear glass bottle with transparent liquid and a thin clear tube catching morning sunlight, sparkling caustic reflections on ivory linen, minimal composition, olive shadows
+7. og.jpg — горизонталь 1200×630, превью ссылки в мессенджерах
+Shadow of a dried palm leaf falling across a warm plaster wall, generous empty space on the left side for a logo
 
-6. dir-laser.jpg — Лазерная эпиляция, вертикаль 4:5
-Bare shoulder and collarbone of a woman in soft side light, natural skin texture, draped ivory linen, olive background, face out of frame, calm and elegant
+8. leopard.jpg — квадрат 2048×2048, для версии «Леопард» (без хвоста)
+Seamless tileable leopard print texture, warm caramel and black rosettes on a sand background, printed on fine silk with a subtle sheen, flat top-down view, no folds, no text
 
-7. og.jpg — превью ссылки в мессенджерах, горизонталь 1200×630
-Shadow of a dried palm leaf falling across a warm ivory plaster wall, olive and khaki tones, generous empty space on the left side for a logo
-
+Сейчас паттерн леопарда нарисован кодом (site/assets/leopard.svg); картинка 8 нужна, только если захочется «шёлковую» фактуру.
+Картинки 1–6 встрою в блок «Направления», когда будут готовы.

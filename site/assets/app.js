@@ -44,34 +44,16 @@ const header = document.querySelector('.header');
 const hero = document.querySelector('.hero');
 if (hero) new IntersectionObserver(([e]) => header.classList.toggle('on-hero', e.isIntersecting), { rootMargin: '-76px 0px 0px 0px' }).observe(hero);
 
-/* Направления: «от … ₽» из прайса + картинка за курсором */
+/* Направления: «от … ₽» из прайса */
 document.querySelectorAll('.dir').forEach(li => {
   const items = li.dataset.cats.split(' ').flatMap(id => byId[id]?.items || []).filter(i => !isAddon(i));
   if (items.length) li.querySelector('.price').textContent = 'от ' + rub(Math.min(...items.map(i => i.p)));
 });
-if (document.querySelector('.dir') && matchMedia('(hover: hover) and (pointer: fine)').matches) {
-  const peek = document.createElement('div');
-  peek.className = 'peek';
-  peek.setAttribute('aria-hidden', 'true');
-  document.body.append(peek);
-  document.querySelectorAll('.dir').forEach(li => {
-    li.addEventListener('mouseenter', () => {
-      peek.style.backgroundImage = `url(${li.dataset.img}), linear-gradient(160deg, #b6b28f, #47452e)`;
-      peek.classList.add('show');
-    });
-    li.addEventListener('mouseleave', () => peek.classList.remove('show'));
-  });
-  let x = 0, y = 0, raf = 0;
-  addEventListener('mousemove', e => {
-    x = e.clientX; y = e.clientY;
-    raf ||= requestAnimationFrame(() => { peek.style.translate = `${x + 32}px ${y - 170}px`; raf = 0; });
-  });
-}
 
 /* Комплексы на главной */
 document.querySelectorAll('.offer-list[data-cat]').forEach(ul => {
   ul.innerHTML = (byId[ul.dataset.cat]?.items || []).map(i =>
-    `<li class="offer"><div><h3>${esc(i.n)}</h3><p>${esc(i.d)}</p></div><div class="price">${rub(i.p)}<small>${esc(i.t)}</small></div></li>`).join('');
+    `<li class="offer"><div><h3>${esc(i.n)}</h3><p>${esc(i.d)}</p></div><div class="price" data-p="${i.p}">${rub(i.p)}<small>${esc(i.t)}</small></div></li>`).join('');
 });
 
 /* Каталог: список, поиск, подсветка раздела в навигации */
@@ -122,3 +104,60 @@ if (list) {
   }), { rootMargin: '-35% 0px -60% 0px' });
   list.querySelectorAll('.cat').forEach(s => spy.observe(s));
 }
+
+/* ---------- Переключатель версий дизайна (только для показа клиенту) ---------- */
+const THEMES = ['Олива', 'Белая клиника', 'Old money', 'Мягкий модерн', 'Леопард'];
+const switcher = document.createElement('nav');
+switcher.className = 'themes';
+switcher.setAttribute('aria-label', 'Версия дизайна');
+switcher.innerHTML = THEMES.map((name, i) => `<button type="button" data-v="${i + 1}" title="${name}">${i + 1}<span>. ${name}</span></button>`).join('');
+document.body.append(switcher);
+const markTheme = () => switcher.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String('v' + b.dataset.v === document.documentElement.dataset.theme)));
+markTheme();
+switcher.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  const apply = () => { document.documentElement.dataset.theme = 'v' + b.dataset.v; markTheme(); };
+  document.startViewTransition ? document.startViewTransition(apply) : apply();
+  try { localStorage.setItem('yve-v', b.dataset.v); } catch { /* приватный режим: версия просто не запомнится */ }
+  const url = new URL(location.href);
+  url.searchParams.set('v', b.dataset.v);
+  history.replaceState(null, '', url);
+});
+
+/* ---------- Появление блоков при прокрутке ---------- */
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const countUp = el => {
+  const end = Number(el.dataset.p);
+  if (still || !end) return;
+  const start = performance.now();
+  const tick = now => {
+    const t = Math.min(1, (now - start) / 1100);
+    const v = Math.round(end * (0.55 + 0.45 * (1 - (1 - t) ** 3)) / 100) * 100;
+    el.firstChild.textContent = rub(t < 1 ? v : end);
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+};
+const reveal = new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-p]').forEach(countUp);
+  reveal.unobserve(e.target);
+}), { rootMargin: '0px 0px -12% 0px' });
+const groups = ['.dir', '.offer', '.step', '.facts > *', '.contacts dl > div', '.svc', '.doc section'];
+groups.forEach(sel => document.querySelectorAll(sel).forEach(el => {
+  el.classList.add('rv');
+  el.style.setProperty('--i', [...el.parentElement.children].indexOf(el) % 8);
+}));
+document.querySelectorAll('.band .h2, .lead, .cat-title, .award, .contacts-actions, .doctor .role, .offer-foot, .catalog-note, .dark > .wrap > .btn')
+  .forEach(el => el.classList.add('rv'));
+document.querySelectorAll('.rv').forEach(el => reveal.observe(el));
+
+/* ---------- Шапка уезжает при прокрутке вниз и возвращается при прокрутке вверх ---------- */
+let lastY = scrollY;
+addEventListener('scroll', () => {
+  const y = scrollY;
+  header.classList.toggle('away', y > lastY && y > 400 && !header.querySelector('details[open]'));
+  lastY = y;
+}, { passive: true });
