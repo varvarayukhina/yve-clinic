@@ -3,7 +3,7 @@ const CONFIG = {
   booking: 'https://n1676841.yclients.ru/company/1501872/personal/menu?o=',
   telegram: '', // ссылка на бота WaHelp, например https://t.me/yve_clinic_bot
   phone: '',    // +74950000000
-  lead: '',     // адрес приёма заявок (POST, FormData: name, phone, via, topic); пусто — черновик, заявка никуда не уходит
+  lead: '',     // адрес приёма заявок на перезвон (POST, FormData: name, phone); пусто — черновик, заявка никуда не уходит
 };
 
 const CATALOG = window.CATALOG || [];
@@ -118,29 +118,27 @@ document.addEventListener('click', e => {
   openPanel(dlg);
 });
 
-/* Заявка «Помочь с выбором» */
-const lead = panel('book lead', `<div class="book-bar"><b id="lead-title">Помочь с выбором</b><button class="book-close" type="button" aria-label="Закрыть">${closeIcon}</button></div>
+/* Заявка на перезвон: окошко справа внизу «Хочу быть красивой, но не знаю, с чего начать» */
+const lead = panel('book lead', `<div class="book-bar"><b id="lead-title">Хочу быть красивой, но не знаю, с чего начать</b><button class="book-close" type="button" aria-label="Закрыть">${closeIcon}</button></div>
   <form class="lead-form">
-    <p class="lead-intro">Не можете выбрать процедуру? Мы понимаем: их больше ста. Оставьте телефон — администратор перезвонит, ответит на вопросы и запишет на консультацию к врачу.</p>
+    <p class="lead-intro">Оставьте телефон — администратор перезвонит, ответит на вопросы и поможет выбрать первый шаг.</p>
     <label class="field">Имя<input name="name" autocomplete="given-name" required></label>
     <label class="field">Телефон<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00" required minlength="10"></label>
-    <fieldset><legend>Как удобнее связаться</legend>
-      ${['Звонок', 'WhatsApp', 'Telegram'].map((v, i) => `<label class="chip"><input type="radio" name="via" value="${v}"${i ? '' : ' checked'}><span>${v}</span></label>`).join('')}
-    </fieldset>
-    <fieldset><legend>Что интересует <small>— если знаете</small></legend>
-      ${['Лицо', 'Тело', 'Волосы', 'Пока не знаю'].map(v => `<label class="chip"><input type="checkbox" name="topic" value="${v}"><span>${v}</span></label>`).join('')}
-    </fieldset>
     <label class="consent"><input type="checkbox" name="consent" required><span>Даю <a class="link" href="svedeniya.html#soglasie" target="_blank">согласие на обработку персональных данных</a></span></label>
-    <button class="btn btn-solid" type="submit">Отправить заявку</button>
+    <button class="btn btn-solid" type="submit">Перезвоните мне</button>
     <p class="lead-status" role="status"></p>
   </form>`);
 lead.setAttribute('aria-labelledby', 'lead-title');
-const tab = document.createElement('button');
-tab.className = 'lead-tab';
-tab.type = 'button';
-tab.dataset.lead = '';
-tab.textContent = 'Помочь с выбором';
-document.body.append(tab);
+const helper = document.createElement('div');
+helper.className = 'helper';
+helper.innerHTML = `<div class="helper-bubble"><button class="helper-say" type="button" data-lead>Хочу быть красивой, но&nbsp;не&nbsp;знаю, с&nbsp;чего начать</button><button class="helper-x" type="button" aria-label="Скрыть подсказку">${closeIcon}</button></div>
+  <button class="helper-btn" type="button" data-lead aria-label="Заявка на перезвон"><svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="14" cy="12.5" rx="8" ry="9"/><path d="M14 21.5V29M11 29h6M10.2 9.4a4.6 4.6 0 0 1 3.2-2.6M26.5 3.5v4M24.5 5.5h4"/></svg></button>`;
+document.body.append(helper);
+try { if (sessionStorage.getItem('yve-helper-x')) helper.querySelector('.helper-bubble').hidden = true; } catch { /* приватный режим: подсказка просто покажется снова */ }
+helper.querySelector('.helper-x').addEventListener('click', () => {
+  helper.querySelector('.helper-bubble').hidden = true;
+  try { sessionStorage.setItem('yve-helper-x', '1'); } catch { /* приватный режим */ }
+});
 document.addEventListener('click', e => { if (e.target.closest('[data-lead]')) openPanel(lead); });
 const form = lead.querySelector('form');
 form.addEventListener('submit', async e => {
@@ -154,7 +152,7 @@ form.addEventListener('submit', async e => {
       const r = await fetch(CONFIG.lead, { method: 'POST', body: new FormData(form) });
       if (!r.ok) throw new Error('HTTP ' + r.status);
     }
-    form.innerHTML = '<div class="lead-done"><p class="h3">Заявка принята</p><p>Администратор свяжется с вами в рабочее время клиники. А пока можно посмотреть <a class="link" href="uslugi.html">услуги и цены</a>.</p>'
+    form.innerHTML = '<div class="lead-done"><p class="h3">Спасибо!</p><p>Администратор перезвонит в рабочее время клиники. А пока можно посмотреть <a class="link" href="uslugi.html">услуги и цены</a>.</p>'
       + (CONFIG.lead ? '' : '<p><span class="todo">Черновик: приём заявок ещё не подключён, заявка никуда не ушла</span></p>') + '</div>';
   } catch (err) {
     console.error(err);
