@@ -522,8 +522,8 @@ html:not(.no-intro) .hero h1 > span:nth-child(2) > span { --d: 2.05s; }
 .intro { animation-delay: 1.6s; }
 .intro-sig { display: block; width: min(62vw, 360px); height: auto; overflow: visible; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .intro-sig path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw var(--t) linear forwards; animation-delay: var(--dl); }
-/* направления как у Muse — крупные строки антиквы, стрелка, наклонное фото при наведении */
-.dir-img, .dir-arrow { display: none; }
+/* направления как у Muse — крупные строки антиквы, стрелка и цена */
+.dir-arrow { display: none; }
 .dirs { border-top: 1px solid var(--ink); }
 .dir { position: relative; }
 .dir a { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "name price arrow" "desc price arrow"; gap: 8px clamp(24px, 3vw, 48px); align-items: center; padding: clamp(26px, 3vw, 40px) 0; }
@@ -534,20 +534,9 @@ html:not(.no-intro) .hero h1 > span:nth-child(2) > span { --d: 2.05s; }
 .dir a:hover .price { translate: none; }
 .dir-arrow { display: block; grid-area: arrow; transition: translate .5s var(--ease-out); }
 .dir a:hover .dir-arrow { translate: 8px 0; }
-.dir-img {
-  display: block; position: absolute; z-index: 2; right: 190px; top: 50%; width: clamp(140px, 13vw, 200px); height: auto; aspect-ratio: 4 / 5; object-fit: cover;
-  pointer-events: none; opacity: 0; transform: translateY(-50%) rotate(-6deg) scale(.9);
-  transition: opacity .35s var(--ease), transform .7s var(--ease-out); box-shadow: 0 30px 50px -28px rgba(34, 35, 26, .55);
-}
-.dir:nth-child(even) .dir-img { right: 225px; transform: translateY(-50%) rotate(5deg) scale(.9); }
-.dir a:hover .dir-img, .dir a:focus-visible .dir-img { opacity: 1; transform: translateY(-50%) rotate(-3deg) scale(1); }
-.dir:nth-child(even) a:hover .dir-img, .dir:nth-child(even) a:focus-visible .dir-img { transform: translateY(-50%) rotate(3deg) scale(1); }
-@media (hover: none), (max-width: 760px) {
+@media (max-width: 760px) {
   .dir a { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name name" "desc desc" "price arrow"; padding-right: 0; }
-  .dir h3, .dir p { padding-right: clamp(92px, 24vw, 140px); }
   .dir h3 { font-size: clamp(26px, 7vw, 34px); }
-  .dir-img, .dir:nth-child(even) .dir-img { right: 0; top: clamp(22px, 3vw, 36px); width: clamp(80px, 21vw, 120px); opacity: 1; transform: rotate(4deg); }
-  .dir:nth-child(even) .dir-img { transform: rotate(-4deg); }
 }
 /* ---------- Версия 2 первого экрана: список направлений как у Lanserhof ---------- */
 .hero-list { display: none; }
