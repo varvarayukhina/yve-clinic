@@ -185,6 +185,26 @@ document.querySelectorAll('.dir').forEach(li => {
   if (items.length) li.querySelector('.price').textContent = 'от ' + rub(Math.min(...items.map(i => i.p)));
 });
 
+/* Версия 2 первого экрана: активное направление крупнее, фото и описание меняются; сами по себе — каждые 3,5 с, пока посетитель не взаимодействует */
+const hl = document.querySelector('.hero-list');
+if (hl) {
+  const links = [...hl.querySelectorAll('.hl-list a')];
+  const photos = [...hl.querySelectorAll('.hl-photos img')];
+  const desc = hl.querySelector('.hl-desc');
+  const dirs = [...document.querySelectorAll('.dir')];
+  const show = i => {
+    links.forEach((a, k) => a.classList.toggle('on', k === i));
+    photos.forEach((img, k) => img.classList.toggle('on', k === i));
+    const d = dirs[i];
+    desc.innerHTML = d ? `${esc(d.querySelector('p').textContent)} <b>${esc(d.querySelector('.price').textContent)}</b>` : '';
+  };
+  let cur = 0, timer = null;
+  const auto = () => { timer = setInterval(() => show(cur = (cur + 1) % links.length), 3500); };
+  links.forEach((a, i) => ['mouseenter', 'focus'].forEach(ev => a.addEventListener(ev, () => { clearInterval(timer); show(cur = i); })));
+  show(0);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) auto();
+}
+
 /* Программы сезона на главной */
 document.querySelectorAll('.offer-list[data-cat]').forEach(ul => {
   ul.innerHTML = (byId[ul.dataset.cat]?.items || []).map(i =>
@@ -280,21 +300,21 @@ if (find) {
   });
 }
 
-/* ---------- Переключатель версий дизайна (только для показа клиенту) ---------- */
-const THEMES = ['Олива', 'Белая клиника', 'Old money', 'Мягкий модерн', 'Леопард', 'Новая'];
+/* ---------- Переключатель версий первого экрана (только для показа клиенту) ---------- */
+const VERSIONS = ['Фото во весь экран', 'Список направлений'];
 const switcher = document.createElement('nav');
 switcher.className = 'themes';
-switcher.setAttribute('aria-label', 'Версия дизайна');
-switcher.innerHTML = THEMES.map((name, i) => `<button type="button" data-v="${i + 1}" title="${name}">${i + 1}<span>. ${name}</span></button>`).join('');
+switcher.setAttribute('aria-label', 'Версия первого экрана');
+switcher.innerHTML = VERSIONS.map((name, i) => `<button type="button" data-v="${i + 1}">${i + 1}<span>. ${name}</span></button>`).join('');
 document.body.append(switcher);
-const markTheme = () => switcher.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String('v' + b.dataset.v === document.documentElement.dataset.theme)));
-markTheme();
+const markVersion = () => switcher.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === document.documentElement.dataset.v)));
+markVersion();
 switcher.addEventListener('click', e => {
   const b = e.target.closest('button');
   if (!b) return;
-  const apply = () => { document.documentElement.dataset.theme = 'v' + b.dataset.v; markTheme(); };
+  const apply = () => { document.documentElement.dataset.v = b.dataset.v; markVersion(); };
   document.startViewTransition ? document.startViewTransition(apply) : apply();
-  try { localStorage.setItem('yve-v', b.dataset.v); } catch { /* приватный режим: версия просто не запомнится */ }
+  try { localStorage.setItem('yve-hero', b.dataset.v); } catch { /* приватный режим: версия просто не запомнится */ }
   const url = new URL(location.href);
   url.searchParams.set('v', b.dataset.v);
   history.replaceState(history.state, '', url);
