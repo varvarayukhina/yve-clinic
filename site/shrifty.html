@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>YVE — шрифты на выбор</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&family=Wix+Madefor+Text:wght@400..600&family=Wix+Madefor+Display:wght@400..600&family=Piazzolla:ital,opsz,wght@0,8..30,400..600;1,8..30,400..600&family=Geologica:wght@400..600&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Golos+Text:wght@400..600&family=Vollkorn:ital,wght@0,400..600;1,400..600&family=Onest:wght@400..600&display=swap">
+<style>
+/* Образец шрифтов: один и тот же первый экран и «Направления» в пяти бесплатных сочетаниях. Палитра — версия 6. */
+:root { --paper: #fbfaf7; --ink: #131b2e; --muted: #3c4354; --line: rgba(19, 27, 46, .16); --navy: #1c2d57; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+.jump { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; padding: 12px max(16px, 4vw); background: var(--navy); color: #fff; font: 500 16px/1.3 'Golos Text', Arial, sans-serif; }
+.jump a { color: #fff; text-underline-offset: .25em; }
+.v { font-family: var(--t); font-weight: var(--tw, 400); scroll-margin-top: 48px; }
+.label { padding: 28px max(16px, 4vw) 12px; font: 600 16px/1.3 'Golos Text', Arial, sans-serif; color: var(--muted); border-top: 6px solid var(--navy); }
+.label b { color: var(--ink); font-size: 20px; display: block; margin-bottom: 4px; }
+.hero { position: relative; isolation: isolate; min-height: 88svh; display: grid; place-items: center; padding: 120px max(16px, 4vw) 56px; color: #fff; text-align: center; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: -2; background: #2a2420 url(img/hero.jpg) center 38% / cover; }
+.hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 16, 13, .45), rgba(20, 16, 13, .25) 40%, rgba(20, 16, 13, .7)); }
+.hero .logo { position: absolute; top: 28px; left: 50%; translate: -50% 0; font: var(--dw, 500) 28px/1 var(--d); letter-spacing: .2em; margin-right: -.2em; }
+.hero h1 { margin: 0; font: var(--dw, 500) clamp(46px, 8vw, 96px)/1.02 var(--d); letter-spacing: var(--dt, -.015em); text-wrap: balance; }
+.hero p { max-width: 30em; margin: 28px auto 0; font-size: clamp(18px, 1.5vw, 20px); line-height: 1.55; text-wrap: pretty; }
+.acts { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; }
+.acts span { padding: 15px 26px; border-radius: 999px; border: 1.5px solid #fff; font-weight: 500; font-size: 16px; }
+.acts span:first-child { background: #fff; color: var(--ink); }
+.dirs { padding: clamp(56px, 8vw, 110px) max(16px, 4vw); max-width: 1360px; margin: 0 auto; }
+.dirs h2 { margin: 0 0 32px; font: var(--dw, 500) clamp(40px, 5vw, 66px)/1.05 var(--d); letter-spacing: var(--dt, -.015em); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 32px; align-items: center; padding: 26px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 1px solid var(--ink); }
+.row h3 { margin: 0; font: var(--dw, 500) clamp(30px, 3.6vw, 52px)/1.06 var(--d); letter-spacing: var(--dt, -.015em); }
+.row p { margin: 0; grid-column: 1; font-size: 17px; line-height: 1.5; color: var(--muted); }
+.row b { grid-column: 2; grid-row: 1 / span 2; font-weight: 500; font-size: 19px; white-space: nowrap; }
+.svc { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 4px 28px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.svc h4 { margin: 0; font: var(--sstyle, normal) var(--sw, 500) 22px/1.3 var(--s, var(--d)); }
+.svc p { grid-column: 1; margin: 0; font-size: 16.5px; color: var(--muted); }
+.svc span { color: var(--muted); font-size: 16px; }
+.svc b { font-weight: 600; font-size: 21px; }
+.cat { margin-top: 56px; }
+.cat h3 { margin: 0 0 6px; font: var(--dw, 500) clamp(26px, 2.4vw, 34px)/1.1 var(--d); padding-bottom: 14px; border-bottom: 1.5px solid var(--ink); }
+@media (max-width: 640px) { .svc { grid-template-columns: 1fr auto; } .svc span { grid-column: 1; } .svc b { grid-column: 2; grid-row: 1; } }
+
+/* Пять сочетаний: --d заголовки, --t текст, --s названия процедур */
+.a { --d: 'Literata', Georgia, serif; --dw: 500; --t: 'Wix Madefor Text', Arial, sans-serif; --s: 'Literata', serif; --sstyle: italic; }
+.a .hero h1, .a .dirs h2, .a .row h3 { font-variation-settings: 'opsz' 72; }
+.b { --d: 'Piazzolla', Georgia, serif; --dw: 500; --dt: -.02em; --t: 'Geologica', Arial, sans-serif; --s: 'Piazzolla', serif; --sstyle: italic; }
+.c { --d: 'Bona Nova', Georgia, serif; --dw: 400; --dt: 0; --t: 'Golos Text', Arial, sans-serif; --s: 'Bona Nova', serif; --sstyle: italic; --sw: 400; }
+.d { --d: 'Vollkorn', Georgia, serif; --dw: 500; --t: 'Onest', Arial, sans-serif; --s: 'Vollkorn', serif; --sstyle: italic; }
+.e { --d: 'Wix Madefor Display', Arial, sans-serif; --dw: 500; --dt: -.03em; --t: 'Wix Madefor Text', Arial, sans-serif; --s: 'Wix Madefor Display', sans-serif; --sw: 600; }
+</style>
+</head>
+<body>
+<nav class="jump" aria-label="Варианты">Варианты: <a href="#a">1. Literata</a> <a href="#b">2. Piazzolla</a> <a href="#c">3. Bona Nova</a> <a href="#d">4. Vollkorn</a> <a href="#e">5. Wix Madefor</a></nav>
+<main id="list"></main>
+<script>
+const V = [
+  ['a', 'Literata + Wix Madefor Text', 'Книжная антиква Google Play Книг и спокойный гротеск. Тепло, интеллигентно, без «люкс-шаблона».'],
+  ['b', 'Piazzolla + Geologica', 'Острая современная антиква с характером и гротеск с выразительной кириллицей. Самый «дизайнерский» вариант.'],
+  ['c', 'Bona Nova + Golos Text', 'Польская классическая антиква и гротеск, нарисованный под русский язык. Олд мани без вычурности.'],
+  ['d', 'Vollkorn + Onest', 'Плотная тёплая антиква, хорошо читается в любом размере, и чистый гротеск.'],
+  ['e', 'Wix Madefor Display + Text', 'Только гротеск, без антиквы — как у Orient Express и Aesop. Современно и дорого за счёт сдержанности.'],
+];
+const DIRS = [
+  ['Инъекционная косметология', 'Ботулинотерапия, контурная пластика губ, биоревитализация, мезотерапия', 'от 7 000 ₽'],
+  ['Аппаратная косметология', 'Тулиевый лазер LaseMD Ultra, SMAS-лифтинг Ultraformer MPT, игольчатый RF Vivace', 'от 8 000 ₽'],
+  ['Эстетика лица', 'Чистки, пилинги PRX-T33, Peach Peel, NIMUE, уход перед важным событием', 'от 5 000 ₽'],
+];
+document.getElementById('list').innerHTML = V.map(([k, name, note], i) => `
+  <section class="v ${k}" id="${k}" aria-labelledby="h-${k}">
+    <div class="label"><b id="h-${k}">${i + 1}. ${name}</b>${note}</div>
+    <div class="hero">
+      <div class="logo">YVE</div>
+      <div>
+        <h1>Косметология и трихология</h1>
+        <p>Красота, какой её задумала природа. Врач назначает только то, что нужно именно вам, — и ничего лишнего.</p>
+        <div class="acts"><span>Записаться на консультацию</span><span>Услуги и цены</span></div>
+      </div>
+    </div>
+    <div class="dirs">
+      <h2>Направления</h2>
+      ${DIRS.map(([t, d, p]) => `<div class="row"><h3>${t}</h3><p>${d}</p><b>${p}</b></div>`).join('')}
+      <div class="cat">
+        <h3>Ботулинотерапия</h3>
+        <div class="svc"><h4>Релатокс 50 единиц</h4><span>30 мин</span><b>18 500 ₽</b><p>Разглаживание мимических морщин</p></div>
+        <div class="svc"><h4>Фототерапия + пилинг Peach Peel</h4><span>1 ч 10 мин</span><b>18 500 ₽</b><p>Обновление, сияние и ухоженный вид кожи</p></div>
+      </div>
+    </div>
+  </section>`).join('');
+</script>
+</body>
+</html>
