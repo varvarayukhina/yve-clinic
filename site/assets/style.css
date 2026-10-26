@@ -266,12 +266,27 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
   .step::before { font-size: 48px; margin-bottom: 14px; }
 }
 /* ---------- Контакты ---------- */
-.contacts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px clamp(32px, 6vw, 96px); }
+.place-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 40px; margin-bottom: 32px; }
+.place-rating { display: flex; align-items: center; gap: 18px; }
+.place-rating iframe { flex: none; border: 0; }
+.place-rating p { max-width: 22em; font-size: 16px; color: var(--muted); }
+.place-rating b { color: var(--ink); font-weight: 600; }
+.place-photos { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: repeat(2, clamp(180px, 19vw, 280px)); gap: 12px; margin-bottom: clamp(40px, 5vw, 64px); }
+.place-photos img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r); }
+.place-photos .p-wide { grid-row: span 2; }
+.place-map img { width: 100%; height: auto; border-radius: var(--r); border: 1px solid var(--line); }
+.place-map .contacts-actions { margin-top: 20px; }
+@media (max-width: 760px) {
+  .place-photos { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 170px; }
+  .place-photos .p-wide { grid-column: span 2; grid-row: auto; }
+}
+.contacts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px clamp(32px, 6vw, 96px); align-items: start; }
 .contacts dl { margin: 0; display: grid; gap: 22px; }
 .contacts dt { font-size: 16px; color: var(--muted); }
-.contacts dd { margin: 4px 0 0; font: var(--dw) clamp(22px, 2.2vw, 28px)/1.3 var(--display); }
+.contacts dd { margin: 4px 0 0; font: 500 clamp(20px, 1.9vw, 24px)/1.35 var(--display); }
+.contacts dd a { text-decoration: none; }
 .contacts dd .link { font: 500 16px var(--body); }
-.contacts-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+.contacts-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 /* ---------- Частые вопросы ---------- */
 .faq { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
 .faq .lead { margin-top: 20px; }
@@ -288,9 +303,6 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 @media (max-width: 860px) {
   .faq { grid-template-columns: minmax(0, 1fr); }
 }
-.award { display: flex; gap: 20px; align-items: center; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); font-size: 17px; color: var(--muted); }
-.award b { font: var(--dw) 22px/1.2 var(--display); color: var(--ink); display: block; }
-.award svg { flex: none; }
 @media (max-width: 760px) {
   .contacts { grid-template-columns: 1fr; }
 }
@@ -462,7 +474,7 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 }
 /* ---------- шапка — логотип по центру ---------- */
 .header .wrap { position: relative; }
-.logo { position: absolute; left: 50%; translate: -50% 0; margin: 0; }
+.header .logo { position: absolute; left: 50%; translate: -50% 0; margin: 0; }
 .logo small { display: none; }
 .logo b { font: 400 28px/1 var(--big); letter-spacing: .22em; margin-right: -.22em; }
 .nav { margin-right: auto; gap: 24px; }
@@ -576,7 +588,7 @@ html[data-v="2"] .header.on-hero .btn { background: var(--btn-bg); border-color:
 
 /* ---------- Заявка на перезвон: кнопка-зеркальце справа внизу, облачко и окошко с формой ---------- */
 .helper { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(var(--warn-h) + 16px); z-index: 40; display: flex; align-items: flex-end; gap: 12px; }
-.helper-btn { flex: none; width: 64px; height: 64px; border: 0; border-radius: 50%; display: grid; place-items: center; background: var(--btn-bg); color: var(--deep-accent); cursor: pointer; box-shadow: 0 18px 40px -16px rgba(34, 35, 26, .6); transition: transform .35s var(--ease-out), background-color .3s; }
+.helper-btn { flex: none; width: 64px; height: 64px; border: 1.5px solid color-mix(in srgb, var(--deep-accent) 70%, transparent); border-radius: 50%; display: grid; place-items: center; background: var(--btn-bg); color: var(--deep-accent); cursor: pointer; box-shadow: 0 18px 40px -16px rgba(34, 35, 26, .6); transition: transform .35s var(--ease-out), background-color .3s; }
 .helper-btn:hover { transform: scale(1.07); background: var(--btn-hover); }
 .helper-btn svg { transform-origin: 50% 70%; animation: wiggle 5s var(--ease) 3s infinite; }
 @keyframes wiggle { 0%, 14%, 100% { transform: rotate(0); } 2% { transform: rotate(-16deg); } 4% { transform: rotate(13deg); } 6% { transform: rotate(-10deg); } 8% { transform: rotate(7deg); } 10% { transform: rotate(-4deg); } 12% { transform: rotate(2deg); } }

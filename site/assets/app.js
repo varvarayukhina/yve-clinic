@@ -2,7 +2,7 @@
 const CONFIG = {
   booking: 'https://n1676841.yclients.ru/company/1501872/personal/menu?o=',
   telegram: '', // ссылка на бота WaHelp, например https://t.me/yve_clinic_bot
-  phone: '',    // +74950000000
+  phone: '+79919882299', // с карточки клиники на Яндекс Картах
   lead: '',     // адрес приёма заявок на перезвон (POST, FormData: name, phone); пусто — черновик, заявка никуда не уходит
 };
 
@@ -329,7 +329,7 @@ groups.forEach(sel => document.querySelectorAll(sel).forEach(el => {
   el.classList.add('rv');
   el.style.setProperty('--i', [...el.parentElement.children].indexOf(el) % 8);
 }));
-document.querySelectorAll('.band .h2, .lead, .cat-title, .award, .contacts-actions, .doctor .role, .offer-foot, .catalog-note, .dark > .wrap > .btn')
+document.querySelectorAll('.band .h2, .lead, .cat-title, .contacts-actions, .doctor .role, .offer-foot, .catalog-note, .dark > .wrap > .btn')
   .forEach(el => el.classList.add('rv'));
 document.querySelectorAll('.rv').forEach(el => reveal.observe(el));
 
