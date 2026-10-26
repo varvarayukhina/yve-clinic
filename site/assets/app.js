@@ -209,80 +209,213 @@ document.querySelectorAll('.offer-list[data-cat]').forEach(ul => {
     `<li class="offer"><div><h3>${esc(i.n)}</h3><p>${esc(i.d)}</p></div><div class="price">${rub(i.p)}<small>${esc(i.t)}</small><a class="link" href="${CONFIG.booking}" data-book data-svc="${esc(i.n)}">Записаться<span class="visually-hidden">: ${esc(i.n)}</span></a></div></li>`).join('');
 });
 
-/* ---------- Каталог ---------- */
+/* ---------- Каталог: «Подобрать процедуру» (карточки) и «Все цены» (полный прайс) ---------- */
+// Одна карточка — одна понятная процедура; зоны, препараты и объёмы — внутри неё.
+// Группировку методов нужно согласовать с врачом. Новая строка прайса без правила попадёт в карточку своего раздела.
+const CARD = {
+  konsultacii: i => i.n,
+  kompleksy: i => i.n,
+  trihologiya: i => /^Плазмо/.test(i.n) ? 'Плазмотерапия кожи головы' : /^Мезотерапия/.test(i.n) ? 'Мезотерапия кожи головы' : i.n,
+  'estetika-lica': i => /^Чистка/.test(i.n) ? 'Чистка лица' : /пилинг/i.test(i.n) ? 'Пилинги' : i.n,
+  botulinoterapiya: i => /гипергидроз/i.test(i.n) ? 'Лечение гипергидроза' : 'Ботулинотерапия',
+  biorevitalizaciya: i => /^Коллагенотерапия/.test(i.n) ? 'Коллагенотерапия' : /^Плазмо/.test(i.n) ? 'Плазмотерапия лица'
+    : /^Липолитическая/.test(i.n) ? 'Липолитическая мезотерапия' : /Hair/.test(i.n) ? 'Мезотерапия кожи головы'
+    : /^(Мезо|MESO|Фракционная)/.test(i.n) ? 'Мезотерапия лица' : 'Биоревитализация',
+  'igolchatyj-rf': i => /^Волосистая/.test(i.n) ? 'Игольчатый RF для кожи головы' : /гипергидроз/i.test(i.n) ? 'Коррекция гипергидроза' : 'Игольчатый RF для лица и тела',
+  'tulievyj-lazer': i => /^Сыворотка/.test(i.n) ? null : /^Волосы/.test(i.n) ? 'Тулиевый лазер для кожи головы' : 'Тулиевый лазер для лица и тела',
+};
+const CARD_TITLE = { epilyaciya: 'Лазерная эпиляция', 'konturnaya-plastika': 'Контурная пластика губ' };
+// Фильтры по запросу — навигация по текстам прайса, а не назначение процедуры
+const NEEDS = [
+  ['Тон и пигментация', c => /пигмент|тона\b|тон кожи|осветл|сосуд/i.test(c.text)],
+  ['Высыпания и жирность', c => /воспал|акне|acne|высып|жирност/i.test(c.text)],
+  ['Морщины и овал лица', c => /морщин|лифтинг|подтяжк|контур|упруг|омолож|коллаген/i.test(c.text) && c.cat.id !== 'epilyaciya'],
+  ['Волосы и кожа головы', c => /волос|кожи головы|волосист|перхот/i.test(c.text) && c.cat.id !== 'epilyaciya'],
+  ['Удаление волос', c => c.cat.id === 'epilyaciya'],
+  ['Тело', c => /живот|бёдер|ягодиц|бока|жиров|колен|локт|плеч/i.test(c.text)],
+];
+const SERUM = 'Сыворотка не входит в стоимость.';
+
+const cards = (() => {
+  const out = [], byKey = new Map();
+  GROUPS.forEach((g, gi) => g.cats.forEach(c => {
+    const [base, dev] = splitTitle(c);
+    const addons = c.items.filter(i => CARD[c.id] && CARD[c.id](i) === null);
+    c.items.forEach(i => {
+      const t = CARD[c.id] ? CARD[c.id](i) : (CARD_TITLE[c.id] || base);
+      if (t === null) return;
+      const key = c.id + '|' + t;
+      if (!byKey.has(key)) {
+        const card = { gi, cat: c, title: t, sub: dev, items: [], addons, anchor: [...byKey.keys()].some(k => k.startsWith(c.id + '|')) ? null : c.id };
+        byKey.set(key, card); out.push(card);
+      }
+      byKey.get(key).items.push(ALL.find(x => x.cat === c && x.n === i.n && x.p === i.p));
+    });
+  }));
+  out.forEach(cd => {
+    cd.text = [cd.title, ...cd.items.map(i => i.n + ' ' + i.d)].join(' ');
+    const main = cd.items.filter(i => !isAddon(i));
+    cd.feat = cd.items.find(i => i.n === 'Лицо') || [...main].sort((x, y) => x.p - y.p)[0] || cd.items[0];
+  });
+  return out;
+})();
+
+const cardsEl = document.getElementById('catalog-cards');
 const list = document.getElementById('catalog-list');
-if (list) {
+if (cardsEl && list) {
   const nav = document.getElementById('cat-nav');
   const input = document.getElementById('q');
   const empty = document.getElementById('empty');
   const found = document.getElementById('found');
-  const SERUM = 'Сыворотка не входит в стоимость.';
+  const needsEl = document.getElementById('needs');
+  const modeBtns = [...document.querySelectorAll('.modes button')];
+  const book = i => `<a class="link" href="${CONFIG.booking}" data-book data-svc="${esc(i.n)}">Записаться<span class="visually-hidden">: ${esc(i.n)}</span></a>`;
+  const desc = i => i.d.startsWith(SERUM) ? i.d.slice(SERUM.length).trim() : i.d;
+  const row = i => `<tr data-i="${ALL.indexOf(i)}"><td class="n">${esc(i.n)}</td><td class="t">${esc(i.t)}</td><td class="p">${rub(i.p)}</td><td class="b">${book(i)}</td></tr>`;
 
-  nav.innerHTML = '<ul>' + GROUPS.map((g, k) => `<li class="grp" data-g="${k}">${esc(g.name)}</li>` + g.cats.map(c =>
-    `<li data-g="${k}"><a href="#${c.id}">${esc(splitTitle(c)[0])}<span>${c.items.length}</span></a></li>`).join('')).join('') + '</ul>';
+  // Карточки
+  cardsEl.innerHTML = GROUPS.map((g, gi) => `
+    <section class="dir-block" data-k="${gi}" aria-labelledby="dc-${gi}"><h2 id="dc-${gi}">${esc(g.name)}</h2><div class="pcards">${cards.filter(c => c.gi === gi).map((c, ci) => {
+      const f = c.feat, serumNote = c.items.some(i => i.d.startsWith(SERUM)) && c.addons.length;
+      return `
+      <article class="pcard" data-c="${cards.indexOf(c)}"${c.anchor ? ` data-anchor="${c.anchor}"` : ''}>
+        <h3>${esc(c.title)}</h3>${c.sub ? `<p class="pc-sub">${esc(c.sub)}</p>` : ''}
+        ${desc(f) ? `<p class="pc-req">${esc(desc(f))}</p>` : ''}
+        <ul class="pc-hits"></ul>
+        <div class="pc-price">${c.items.length > 1 ? `<span>${esc(f.n)}, ${esc(f.t)}</span>` : `<span>${esc(f.t)}</span>`}<b>${rub(f.p)}</b></div>
+        ${serumNote ? `<p class="pc-extra">Сыворотка оплачивается отдельно — от ${rub(Math.min(...c.addons.map(a => a.p)))}. <span class="todo">обязательна или по желанию — уточнить</span></p>` : ''}
+        <div class="pc-actions"><a class="btn btn-solid" href="${CONFIG.booking}" data-book data-svc="${esc(f.n === c.title ? f.n : c.title + ': ' + f.n)}">Записаться</a>${c.items.length > 1 || c.addons.length ? `<button class="link pc-more" type="button" aria-expanded="false">Все варианты и цены — ${c.items.length + (c.addons.length && c.items.some(i => i.d.startsWith(SERUM)) ? c.addons.length : 0)}</button>` : ''}</div>
+        <div class="pc-all" hidden><table><tbody>${c.items.map(row).join('')}</tbody></table>${serumNote ? `<p class="pc-addons-title">Сыворотки к процедуре</p><table><tbody>${c.addons.map(row).join('')}</tbody></table>` : ''}</div>
+      </article>`;
+    }).join('')}</div></section>`).join('');
+  cardsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.pc-more');
+    if (!btn) return;
+    const card = btn.closest('.pcard'), open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    card.classList.toggle('open', open);
+    card.querySelector('.pc-all').hidden = !open;
+    btn.firstChild.textContent = open ? 'Свернуть' : btn.dataset.label;
+  });
+  cardsEl.querySelectorAll('.pc-more').forEach(b => { b.dataset.label = b.textContent; });
 
-  list.innerHTML = GROUPS.map(g => `
-    <div class="grp-block"><h2 class="grp-title">${esc(g.name)}</h2>${g.cats.map(c => {
+  // Полный прайс
+  list.innerHTML = GROUPS.map((g, gi) => `
+    <div class="grp-block" data-k="${gi}"><h2 class="grp-title">${esc(g.name)}</h2>${g.cats.map(c => {
       const [base, dev] = splitTitle(c);
-      // Сыворотки к лазеру — отдельные строки прайса; показываем их цену прямо у процедуры
       const serum = Math.min(...c.items.filter(i => i.n.startsWith('Сыворотка')).map(i => i.p));
       return `
-      <section class="cat" id="${c.id}" aria-labelledby="h-${c.id}">
+      <section class="cat" data-anchor="${c.id}" aria-labelledby="h-${c.id}">
         <div class="cat-title"><h3 id="h-${c.id}">${esc(base)}${dev ? ` <small>${esc(dev)}</small>` : ''}</h3><span>${services(c.items.length)}</span></div>
         <ul class="svc-list">${c.items.map(i => {
           const extra = i.d.startsWith(SERUM) && Number.isFinite(serum);
-          const d = extra ? i.d.slice(SERUM.length).trim() : i.d;
           return `
-          <li class="svc">
-            <div><h4>${esc(i.n)}</h4>${d ? `<p>${esc(d)}</p>` : ''}</div>
+          <li class="svc" data-i="${ALL.findIndex(x => x.cat === c && x.n === i.n && x.p === i.p)}">
+            <div><h4>${esc(i.n)}</h4>${desc(i) ? `<p>${esc(desc(i))}</p>` : ''}</div>
             <span class="dur">${esc(i.t)}</span>
             <span class="price">${rub(i.p)}${extra ? `<small>+ сыворотка от ${rub(serum)}</small>` : ''}</span>
-            <a class="book-btn link" href="${CONFIG.booking}" data-book data-svc="${esc(i.n)}">Записаться<span class="visually-hidden">: ${esc(i.n)}</span></a>
+            ${book(i).replace('class="link"', 'class="book-btn link"')}
           </li>`;
         }).join('')}
         </ul>
       </section>`;
     }).join('')}</div>`).join('');
-  if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
 
-  const rows = [...list.querySelectorAll('.svc')]; // в том же порядке, что ALL
+  // Навигация — только направления
+  nav.innerHTML = '<ul>' + GROUPS.map((g, gi) => `<li><a href="#" data-k="${gi}">${esc(g.name)}</a></li>`).join('') + '</ul>';
+  nav.addEventListener('click', e => {
+    const a = e.target.closest('a[data-k]');
+    if (!a) return;
+    e.preventDefault();
+    document.querySelector(`${mode === 'all' ? '#catalog-list .grp-block' : '#catalog-cards .dir-block'}[data-k="${a.dataset.k}"]`)?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Фильтры по запросу
+  needsEl.innerHTML = NEEDS.map(([name], k) => `<button type="button" aria-pressed="false" data-n="${k}">${name}</button>`).join('');
+  let need = null;
+  needsEl.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    need = need === +b.dataset.n ? null : +b.dataset.n;
+    needsEl.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(+x.dataset.n === need)));
+    apply();
+  });
+
+  // Режим просмотра; якоря (#botulinoterapiya и т. п.) получает только активный вид
+  let mode = new URLSearchParams(location.search).get('mode') === 'all' ? 'all' : 'cards';
+  const setMode = m => {
+    mode = m;
+    modeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    cardsEl.hidden = m !== 'cards'; list.hidden = m !== 'all';
+    document.querySelectorAll('[data-anchor]').forEach(el => { el.removeAttribute('id'); });
+    (m === 'all' ? list : cardsEl).querySelectorAll('[data-anchor]').forEach(el => { el.id = el.dataset.anchor; });
+    apply();
+  };
+  modeBtns.forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
   const apply = () => {
     const raw = input.value.trim();
     const hits = search(raw);
-    const set = hits && new Set(hits);
-    rows.forEach((li, k) => { li.hidden = set ? !set.has(ALL[k]) : false; });
-    list.querySelectorAll('.cat').forEach(sec => {
-      const n = sec.querySelectorAll('.svc:not([hidden])').length;
-      const a = nav.querySelector(`a[href="#${sec.id}"]`);
-      sec.hidden = !n;
-      sec.querySelector('.cat-title > span').textContent = services(n);
-      a.parentElement.hidden = !n;
-      a.querySelector('span').textContent = n;
-    });
-    list.querySelectorAll('.grp-block').forEach(b => { b.hidden = !b.querySelector('.cat:not([hidden])'); });
-    nav.querySelectorAll('.grp').forEach(g => { g.hidden = !nav.querySelector(`li[data-g="${g.dataset.g}"]:not(.grp):not([hidden])`); });
-    found.textContent = set && hits.length ? 'Найдено: ' + services(hits.length) : '';
-    empty.hidden = !set || hits.length > 0;
-    empty.querySelector('q').textContent = raw;
+    const hitSet = hits && new Set(hits);
+    const needFn = need === null ? null : NEEDS[need][1];
+    let shown = 0;
+    if (mode === 'cards') {
+      cardsEl.querySelectorAll('.pcard').forEach(el => {
+        const c = cards[el.dataset.c];
+        const matched = hitSet ? c.items.filter(i => hitSet.has(i)) : null;
+        const ok = (!needFn || needFn(c)) && (!matched || matched.length);
+        el.hidden = !ok;
+        // при поиске в карточке видно, что именно нашлось
+        el.querySelector('.pc-hits').innerHTML = ok && matched && !(matched.length === 1 && matched[0] === c.feat)
+          ? matched.slice(0, 4).map(i => `<li><span>${esc(i.n)}</span><b>${rub(i.p)}</b></li>`).join('') : '';
+        if (ok) shown += matched ? matched.length : 1;
+      });
+      cardsEl.querySelectorAll('.dir-block').forEach(b => { b.hidden = !b.querySelector('.pcard:not([hidden])'); });
+    } else {
+      list.querySelectorAll('.svc').forEach(li => {
+        const i = ALL[li.dataset.i];
+        const c = cards.find(cd => cd.items.includes(i) || cd.addons.includes(i));
+        const ok = (!hitSet || hitSet.has(i)) && (!needFn || (c && needFn(c)));
+        li.hidden = !ok; shown += ok;
+      });
+      list.querySelectorAll('.cat').forEach(sec => {
+        const n = sec.querySelectorAll('.svc:not([hidden])').length;
+        sec.hidden = !n; sec.querySelector('.cat-title > span').textContent = services(n);
+      });
+      list.querySelectorAll('.grp-block').forEach(b => { b.hidden = !b.querySelector('.cat:not([hidden])'); });
+    }
+    const visible = new Set([...document.querySelectorAll(mode === 'all' ? '.grp-block:not([hidden])' : '.dir-block:not([hidden])')].map(b => b.dataset.k));
+    nav.querySelectorAll('a').forEach(a => { a.parentElement.hidden = !visible.has(a.dataset.k); });
+    const filtering = hitSet || needFn;
+    found.textContent = filtering && shown ? (mode === 'all' ? 'Найдено: ' + services(shown) : 'Подходящих процедур: ' + cardsEl.querySelectorAll('.pcard:not([hidden])').length) : '';
+    empty.hidden = !filtering || shown > 0;
+    empty.querySelector('q').textContent = raw || (needFn ? NEEDS[need][0] : '');
     const url = new URL(location.href);
     raw ? url.searchParams.set('q', raw) : url.searchParams.delete('q');
+    mode === 'all' ? url.searchParams.set('mode', 'all') : url.searchParams.delete('mode');
     history.replaceState(history.state, '', url);
   };
   input.addEventListener('input', apply);
-  empty.querySelector('.btn').addEventListener('click', () => { input.value = ''; apply(); input.focus(); });
+  empty.querySelector('.btn').addEventListener('click', () => {
+    input.value = ''; need = null;
+    needsEl.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+    apply(); input.focus();
+  });
   const q0 = new URLSearchParams(location.search).get('q');
-  if (q0) { input.value = q0; apply(); }
+  if (q0) input.value = q0;
+  setMode(mode);
+  if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView();
 
-  // Подсветка раздела в навигации; прокручиваем только саму навигацию, не страницу
-  const links = Object.fromEntries([...nav.querySelectorAll('a')].map(a => [a.hash.slice(1), a]));
+  // Подсветка направления в навигации; прокручиваем только саму навигацию
+  const links = [...nav.querySelectorAll('a')];
   const spy = new IntersectionObserver(entries => entries.forEach(e => {
     if (!e.isIntersecting) return;
-    const a = links[e.target.id];
+    const a = links[e.target.dataset.k];
     nav.querySelector('.active')?.classList.remove('active');
     a.classList.add('active');
-    nav.scrollTo({ left: a.parentElement.offsetLeft - 16, top: a.parentElement.offsetTop - nav.clientHeight / 2, behavior: 'smooth' });
+    nav.scrollTo({ left: a.parentElement.offsetLeft - 16, behavior: 'smooth' });
   }), { rootMargin: '-35% 0px -60% 0px' });
-  list.querySelectorAll('.cat').forEach(s => spy.observe(s));
+  document.querySelectorAll('.dir-block, .grp-block').forEach(s => spy.observe(s));
 }
 
 /* Поиск на главной: подсказки из прайса, Enter — весь список в каталоге */

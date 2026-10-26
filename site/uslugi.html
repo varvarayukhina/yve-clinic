@@ -42,18 +42,23 @@
 <main id="main" class="wrap">
   <div class="page-head">
     <h1>Услуги и цены</h1>
-    <p class="lead">120+ процедур в одной клинике: инъекции, аппараты, уход, волосы, капельницы и лазер. Современные препараты и оборудование, врач, который ведёт вас от консультации до контрольного визита. Всё для вашего спокойствия и красоты.</p>
+    <p class="lead">Выберите процедуру по задаче или смотрите полный прайс — всё для вашего спокойствия и красоты.</p>
     <div class="search">
       <label class="visually-hidden" for="q">Найти услугу</label>
       <input id="q" type="search" placeholder="Процедура или зона" autocomplete="off">
+    </div>
+    <div class="cat-tools">
+      <div class="modes" role="group" aria-label="Вид каталога"><button type="button" data-mode="cards" aria-pressed="true">Подобрать процедуру</button><button type="button" data-mode="all" aria-pressed="false">Все цены</button></div>
+      <div class="needs" id="needs" role="group" aria-label="С каким запросом"></div>
     </div>
     <p class="found" id="found" role="status"></p>
   </div>
 
   <div class="catalog">
-    <nav class="cat-nav" id="cat-nav" aria-label="Категории услуг"></nav>
+    <nav class="cat-nav" id="cat-nav" aria-label="Направления"></nav>
     <div>
-      <div id="catalog-list"><noscript><p>Каталог показывается с включённым JavaScript. Полный прейскурант — <a class="link" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=">в онлайн-записи</a>.</p></noscript></div>
+      <div id="catalog-cards"></div>
+      <div id="catalog-list" hidden><noscript><p>Каталог показывается с включённым JavaScript. Полный прейскурант — <a class="link" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=">в онлайн-записи</a>.</p></noscript></div>
       <div class="empty" id="empty" hidden>
         <p>По запросу <q></q> ничего нет. Попробуйте другое слово — название препарата, аппарата или зоны.</p>
         <button class="btn" type="button">Показать все услуги</button>
