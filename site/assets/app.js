@@ -281,7 +281,7 @@ if (find) {
 }
 
 /* ---------- Переключатель версий дизайна (только для показа клиенту) ---------- */
-const THEMES = ['Олива', 'Белая клиника', 'Old money', 'Мягкий модерн', 'Леопард'];
+const THEMES = ['Олива', 'Белая клиника', 'Old money', 'Мягкий модерн', 'Леопард', 'Новая'];
 const switcher = document.createElement('nav');
 switcher.className = 'themes';
 switcher.setAttribute('aria-label', 'Версия дизайна');

@@ -87,6 +87,23 @@
   --leo: url(leopard.svg);
 }
 
+/* ---------- Версия 6 «Новая»: Orient Express + Lanserhof + Muse ---------- */
+[data-theme="v6"] {
+  --bg: #fbfaf7; --surface: #efede7; --card: #ffffff;
+  --ink: #131b2e; --muted: #3c4354; --line: rgba(19, 27, 46, .16); --accent: #1c2d57;
+  --btn-bg: #1c2d57; --btn-fg: #ffffff; --btn-hover: #0d1730;
+  --hero-bg: #2a2420; --hero-ink: #ffffff; --hero-muted: #f3eee8; --hero-line: rgba(255, 255, 255, .38);
+  --hero-btn-bg: #ffffff; --hero-btn-fg: #131b2e;
+  --deep-bg: #1c2d57; --deep-ink: #f6f4ef; --deep-muted: #dfe3ee; --deep-line: rgba(246, 244, 239, .28); --deep-accent: #d8c49c;
+  --intro-bg: #fbfaf7; --intro-ink: #1c2d57;
+  --display: 'Noto Serif Display', Georgia, serif; --dw: 400; --dt: -.01em;
+  --caps: 'Tenor Sans', 'IBM Plex Sans', sans-serif;
+  --body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; --bw: 400; --bsize: 18px;
+  --svc-font: 'Noto Serif Display', Georgia, serif; --svc-style: italic; --svc-w: 400;
+  --r: 2px; --r-lg: 2px; --btn-r: 999px;
+  --h1: min(12cqi, 96px); --h2: clamp(38px, 4.8vw, 66px); --h3: clamp(28px, 3vw, 40px);
+}
+
 @view-transition { navigation: auto; }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -427,7 +444,7 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 .footer a { color: var(--deep-ink); }
 .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .footer p + p { margin-top: 10px; }
-.footer-legal { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--deep-line); font-size: 15px; }
+.footer-legal { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--deep-line); font-size: 16px; }
 @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr; } }
 /* ч. 7 ст. 24 ФЗ «О рекламе»: предупреждение всегда на экране, ≥5 % площади */
 .warning {
@@ -601,6 +618,73 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 .doc li + li { margin-top: 8px; }
 @media (max-width: 640px) { .doc dl { grid-template-columns: 1fr; gap: 2px; } .doc dd { margin-bottom: 12px; } }
 
+/* ---------- v6: шапка как у Orient Express — логотип по центру, запись маленькой плашкой ---------- */
+[data-theme="v6"] .header .wrap { position: relative; }
+[data-theme="v6"] .logo { position: absolute; left: 50%; translate: -50% 0; margin: 0; }
+[data-theme="v6"] .logo small { display: none; }
+[data-theme="v6"] .logo b { font: 400 25px/1 var(--caps); letter-spacing: .34em; margin-right: -.34em; }
+[data-theme="v6"] .nav { margin-right: auto; gap: 24px; }
+[data-theme="v6"] .h-phone { margin-left: auto; font-weight: 500; }
+[data-theme="v6"] .header .btn { border-radius: 2px; font: 400 16px var(--caps); letter-spacing: .12em; text-transform: uppercase; }
+[data-theme="v6"] .menu { margin-right: auto; }
+[data-theme="v6"] .menu-panel { right: auto; left: 0; }
+@media (max-width: 1380px) { [data-theme="v6"] .nav a:nth-child(n+4) { display: none; } }
+@media (max-width: 480px) {
+  [data-theme="v6"] .logo b { font-size: 20px; letter-spacing: .26em; margin-right: -.26em; }
+  [data-theme="v6"] .header .btn { padding: 0 14px; font: 500 16px var(--body); letter-spacing: 0; text-transform: none; }
+}
+
+/* v6: первый экран — фото во весь экран, одна строка по центру (Orient Express), курсив + капитель (Lanserhof) */
+[data-theme="v6"] .hero { align-items: center; }
+[data-theme="v6"] .hero::before { content: ''; position: absolute; inset: 0; z-index: -2; background: var(--hero-bg) url(../img/hero.jpg) center 38% / cover; animation: hero-zoom 3.2s var(--ease-out) both; animation-delay: calc(var(--d0, 1.55s) - .4s); }
+[data-theme="v6"] .hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 16, 13, .5) 0%, rgba(20, 16, 13, .22) 30%, rgba(20, 16, 13, .3) 62%, rgba(20, 16, 13, .72) 100%); }
+@keyframes hero-zoom { from { transform: scale(1.09); } }
+[data-theme="v6"] .hero-grid { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; align-items: center; padding-top: 150px; padding-bottom: clamp(36px, 5vw, 64px); }
+[data-theme="v6"] .hero-copy { width: min(100%, 1040px); }
+[data-theme="v6"] .hero h1 { line-height: 1; }
+[data-theme="v6"] .hero h1 > span:first-child { font-style: italic; }
+[data-theme="v6"] .hero h1 > span:nth-child(2) { margin-top: .3em; font: 400 clamp(22px, 4.6cqi, 50px)/1.1 var(--caps); letter-spacing: .16em; margin-right: -.16em; text-transform: uppercase; }
+[data-theme="v6"] .hero-text { margin-inline: auto; max-width: 30em; font-weight: 400; text-shadow: 0 1px 18px rgba(0, 0, 0, .35); }
+[data-theme="v6"] .hero-actions, [data-theme="v6"] .hero-meta { justify-content: center; }
+[data-theme="v6"] .hero-meta { border-top: 0; margin-top: clamp(48px, 8vw, 110px); font-weight: 400; }
+[data-theme="v6"]:not(.no-intro) .hero { --d0: 2.15s; }
+[data-theme="v6"]:not(.no-intro) .hero h1 > span > span { --d: 1.95s; }
+[data-theme="v6"]:not(.no-intro) .hero h1 > span:nth-child(2) > span { --d: 2.05s; }
+
+/* v6: заставка — подпись YVE одной линией */
+.intro-sig { display: none; }
+[data-theme="v6"] .intro { animation-delay: 1.6s; }
+[data-theme="v6"] .intro-mark, [data-theme="v6"] .intro-line { display: none; }
+[data-theme="v6"] .intro-sig { display: block; width: min(62vw, 360px); height: auto; overflow: visible; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+[data-theme="v6"] .intro-sig path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw var(--t) linear forwards; animation-delay: var(--dl); }
+
+/* v6: направления как у Muse — крупные строки антиквы, стрелка, наклонное фото при наведении */
+.dir-img, .dir-arrow { display: none; }
+[data-theme="v6"] .dirs { border-top: 1px solid var(--ink); }
+[data-theme="v6"] .dir { position: relative; }
+[data-theme="v6"] .dir a { grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: "name price arrow" "desc price arrow"; gap: 8px clamp(24px, 3vw, 48px); align-items: center; padding: clamp(26px, 3vw, 40px) 0; }
+[data-theme="v6"] .dir h3 { font-size: clamp(32px, 3.7vw, 54px); line-height: 1.06; }
+[data-theme="v6"] .dir a:hover h3 { color: var(--ink); translate: 14px 0; }
+[data-theme="v6"] .dir p { max-width: 36em; }
+[data-theme="v6"] .dir .price { font: 400 18px var(--body); color: var(--muted); white-space: nowrap; }
+[data-theme="v6"] .dir a:hover .price { translate: none; }
+[data-theme="v6"] .dir-arrow { display: block; grid-area: arrow; transition: translate .5s var(--ease-out); }
+[data-theme="v6"] .dir a:hover .dir-arrow { translate: 8px 0; }
+[data-theme="v6"] .dir-img {
+  display: block; position: absolute; z-index: 2; right: 190px; top: 50%; width: clamp(140px, 13vw, 200px); height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+  pointer-events: none; opacity: 0; transform: translateY(-50%) rotate(-6deg) scale(.9);
+  transition: opacity .35s var(--ease), transform .7s var(--ease-out); box-shadow: 0 30px 50px -28px rgba(19, 27, 46, .55);
+}
+[data-theme="v6"] .dir:nth-child(even) .dir-img { right: 225px; transform: translateY(-50%) rotate(5deg) scale(.9); }
+[data-theme="v6"] .dir a:hover .dir-img, [data-theme="v6"] .dir a:focus-visible .dir-img { opacity: 1; transform: translateY(-50%) rotate(-3deg) scale(1); }
+[data-theme="v6"] .dir:nth-child(even) a:hover .dir-img, [data-theme="v6"] .dir:nth-child(even) a:focus-visible .dir-img { transform: translateY(-50%) rotate(3deg) scale(1); }
+@media (hover: none), (max-width: 760px) {
+  [data-theme="v6"] .dir a { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name name" "desc desc" "price arrow"; padding-right: 0; }
+  [data-theme="v6"] .dir h3, [data-theme="v6"] .dir p { padding-right: clamp(92px, 24vw, 140px); }
+  [data-theme="v6"] .dir-img, [data-theme="v6"] .dir:nth-child(even) .dir-img { right: 0; top: clamp(22px, 3vw, 36px); width: clamp(80px, 21vw, 120px); opacity: 1; transform: rotate(4deg); }
+  [data-theme="v6"] .dir:nth-child(even) .dir-img { transform: rotate(-4deg); }
+}
+
 /* Уменьшение движения: всё сразу видно, без заставки и пульсаций */
 @media (prefers-reduced-motion: reduce) {
   .intro { display: none; }
@@ -608,7 +692,7 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
   .hero h1 > span > span, .hero-text, .hero-actions, .hero-meta, .deco { animation: none; }
   .crest .ln { animation: none; stroke-dashoffset: 0; }
   .crest .leaf { animation: none; opacity: 1; }
-  [data-theme="v1"] .hero::before, .deco-blobs i, .deco-leo { animation: none; }
+  [data-theme="v1"] .hero::before, [data-theme="v6"] .hero::before, .deco-blobs i, .deco-leo { animation: none; }
   .offers, .dark { animation: none; }
   .step::after { transform: none; transition: none; }
   html { scroll-behavior: auto; }

@@ -1,0 +1,8 @@
+Временные фото (Unsplash License, бесплатно, без указания авторства). Заменить на собственные снимки клиники перед запуском.
+hero.jpg       https://unsplash.com/photos/woman-in-white-tank-top-gUPznplBsLI
+dir-inject.jpg https://unsplash.com/photos/two-viscous-liquids-overlap-on-a-neutral-background-GeG4U-lAF10
+dir-device.jpg https://unsplash.com/photos/person-holding-white-and-orange-device-IgAa6frsVyQ
+dir-care.jpg   https://unsplash.com/photos/woman-in-white-tank-top-w4Dj3MshHQ0
+dir-hair.jpg   https://unsplash.com/photos/the-back-of-a-womans-head-with-long-hair-P3RwgHQ7sr8
+dir-iv.jpg     https://unsplash.com/photos/a-person-is-holding-a-small-pipe-with-a-liquid-coming-out-of-it-1i6aqfYSkbQ
+dir-laser.jpg  https://unsplash.com/photos/laser-hair-removal-on-leg-szpFxaqS658
