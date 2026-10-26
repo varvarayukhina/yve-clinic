@@ -9,14 +9,16 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="YVE — клиника косметологии и трихологии">
 <meta property="og:description" content="Москва, ул. 1812 года, 8к1. Цены и онлайн-запись.">
-<meta property="og:image" content="img/og.jpg">
+<!-- <meta property="og:image" content="https://…/img/og.jpg"> — абсолютный адрес, когда будет картинка og.jpg -->
 <script src="assets/theme.js"></script>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalClinic","name":"YVE","description":"Клиника косметологии и трихологии","address":{"@type":"PostalAddress","streetAddress":"ул. 1812 года, 8к1","addressLocality":"Москва","addressCountry":"RU"}}
 </script>
 </head>
 <body>
+<a class="skip" href="#main">К содержимому</a>
 
 <div class="intro" aria-hidden="true"><span class="intro-mark"><b>Y</b><b>V</b><b>E</b></span><i class="intro-line"></i></div>
 
@@ -25,7 +27,7 @@
     <a class="logo" href="./" aria-label="YVE, на главную"><b>YVE</b><small>клиника косметологии и трихологии</small></a>
     <nav class="nav" aria-label="Разделы">
       <a href="uslugi.html">Услуги и цены</a>
-      <a href="#kompleksy">Комплексы</a>
+      <a href="#kompleksy">Программы</a>
       <a href="#vrach">Врач</a>
       <a href="#vizit">Первый визит</a>
       <a href="#kontakty">Контакты</a>
@@ -34,17 +36,19 @@
       <summary>Меню</summary>
       <div class="menu-panel">
         <a href="uslugi.html">Услуги и цены</a>
-        <a href="#kompleksy">Комплексы</a>
+        <a href="#kompleksy">Программы</a>
         <a href="#vrach">Врач</a>
         <a href="#vizit">Первый визит</a>
         <a href="#kontakty">Контакты</a>
+        <a href="" data-phone><span class="todo">+7 (___) ___-__-__</span></a>
       </div>
     </details>
+    <a class="h-phone" href="" data-phone><span class="todo">+7 (___) ___-__-__</span></a>
     <a class="btn" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=" data-book>Записаться</a>
   </div>
 </header>
 
-<main>
+<main id="main">
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-copy">
@@ -55,36 +59,10 @@
           <a class="btn btn-ghost" href="uslugi.html">Услуги и цены</a>
         </div>
         <div class="hero-meta">
-          <span>Москва, ул. 1812 года, 8к1</span>
+          <a href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%201812%20%D0%B3%D0%BE%D0%B4%D0%B0%2C%208%D0%BA1" target="_blank" rel="noopener">Москва, ул. 1812 года, 8к1</a>
           <span>«Хорошее место» 2026 по версии Яндекс Карт</span>
         </div>
       </div>
-
-      <!-- v1 «Олива»: схема «основа» из постов клиники -->
-      <figure class="deco deco-capsule">
-        <svg class="capsule" viewBox="0 0 520 600" role="img" aria-label="Основа: питание, ресурс, баланс, расцвет">
-          <rect class="ln" pathLength="1" x="150" y="20" width="220" height="560" rx="110"/>
-          <circle class="ln c1" pathLength="1" cx="260" cy="130" r="80"/>
-          <circle class="ln c2" pathLength="1" cx="260" cy="238" r="80"/>
-          <circle class="ln c3" pathLength="1" cx="260" cy="346" r="80"/>
-          <circle class="ln c4" pathLength="1" cx="260" cy="454" r="80"/>
-          <line class="ln tick" pathLength="1" x1="340" y1="130" x2="470" y2="130"/>
-          <line class="ln tick" pathLength="1" x1="180" y1="238" x2="50" y2="238"/>
-          <line class="ln tick" pathLength="1" x1="340" y1="346" x2="470" y2="346"/>
-          <line class="ln tick" pathLength="1" x1="180" y1="454" x2="50" y2="454"/>
-          <circle class="dot" cx="470" cy="130" r="3.5"/><circle class="dot" cx="50" cy="238" r="3.5"/>
-          <circle class="dot" cx="470" cy="346" r="3.5"/><circle class="dot" cx="50" cy="454" r="3.5"/>
-          <text class="word" x="260" y="130" style="--dl:1s">питание</text>
-          <text class="word" x="260" y="238" style="--dl:1.2s">ресурс</text>
-          <text class="word" x="260" y="346" style="--dl:1.4s">баланс</text>
-          <text class="word" x="260" y="454" style="--dl:1.6s">расцвет</text>
-          <text class="note" text-anchor="middle"><tspan x="470" y="164">внутренняя</tspan><tspan x="470" y="186">поддержка</tspan></text>
-          <text class="note" text-anchor="middle"><tspan x="50" y="272">сон и нервная</tspan><tspan x="50" y="294">система</tspan></text>
-          <text class="note" text-anchor="middle"><tspan x="470" y="380">гармония</tspan><tspan x="470" y="402">и стабильность</tspan></text>
-          <text class="note" text-anchor="middle"><tspan x="50" y="488">кожа, сияние</tspan><tspan x="50" y="510">и энергия</tspan></text>
-        </svg>
-        <figcaption>Сон, питание, движение и забота о себе — основа, на которой строится работа косметолога.</figcaption>
-      </figure>
 
       <!-- v2 «Белая клиника»: первый шаг сразу на экране -->
       <aside class="deco deco-card" aria-label="Первичная консультация">
@@ -116,6 +94,27 @@
     </div>
   </section>
 
+  <section class="find" aria-label="Поиск по услугам и ценам">
+    <div class="wrap">
+      <form class="find-form" action="uslugi.html" role="search">
+        <label class="find-title" for="find-q">Найти процедуру и цену</label>
+        <div class="find-field">
+          <input id="find-q" name="q" type="search" placeholder="Процедура, препарат или зона" autocomplete="off">
+          <button class="btn btn-solid" type="submit">Найти</button>
+        </div>
+      </form>
+      <ul class="find-results" aria-live="polite"></ul>
+      <p class="find-tags">Например:
+        <a href="uslugi.html?q=чистка">чистка лица</a>
+        <a href="uslugi.html?q=пилинг">пилинг</a>
+        <a href="uslugi.html?q=SMAS">SMAS-лифтинг</a>
+        <a href="uslugi.html?q=эпиляция">лазерная эпиляция</a>
+        <a href="uslugi.html?q=капельница">капельницы</a>
+      </p>
+      <p class="find-help">Не знаете, что выбрать? <button class="link" type="button" data-lead>Оставьте заявку</button> — администратор перезвонит и поможет.</p>
+    </div>
+  </section>
+
   <section class="band" id="napravleniya" aria-labelledby="dirs-title">
     <div class="wrap">
       <div class="dirs-head">
@@ -123,22 +122,22 @@
         <p class="lead">Шесть направлений клиники. Полный перечень процедур с ценами и длительностью — в каталоге, запись — онлайн.</p>
       </div>
       <ul class="dirs">
-        <li class="dir" data-cats="botulinoterapiya konturnaya-plastika biorevitalizaciya kollagenostimulyaciya">
-          <a href="uslugi.html#biorevitalizaciya"><h3>Инъекционная косметология</h3><i class="dots"></i><p>Ботулинотерапия, контурная пластика губ, биоревитализация, мезотерапия, коллагеностимуляция</p><span class="price"></span></a>
+        <li class="dir">
+          <a href="uslugi.html#botulinoterapiya"><h3>Инъекционная косметология</h3><i class="dots"></i><p>Ботулинотерапия, контурная пластика губ, биоревитализация, мезотерапия, коллагеностимуляция</p><span class="price"></span></a>
         </li>
-        <li class="dir" data-cats="fototerapiya smas-lifting igolchatyj-rf bipolyarnyj-rf monopolyarnyj-rf tulievyj-lazer fotodinamicheskaya-terapiya">
+        <li class="dir">
           <a href="uslugi.html#tulievyj-lazer"><h3>Аппаратная косметология</h3><i class="dots"></i><p>Тулиевый лазер LaseMD Ultra, SMAS-лифтинг Ultraformer MPT, игольчатый RF Vivace, фототерапия Lumecca, Volnewmer, Forma, фотодинамическая терапия</p><span class="price"></span></a>
         </li>
-        <li class="dir" data-cats="estetika-lica">
+        <li class="dir">
           <a href="uslugi.html#estetika-lica"><h3>Эстетика лица</h3><i class="dots"></i><p>Чистки, пилинги PRX-T33, Peach Peel, NIMUE, уход перед важным событием</p><span class="price"></span></a>
         </li>
-        <li class="dir" data-cats="trihologiya">
+        <li class="dir">
           <a href="uslugi.html#trihologiya"><h3>Трихология</h3><i class="dots"></i><p>Плазмотерапия и мезотерапия кожи головы, аппаратные протоколы для волос</p><span class="price"></span></a>
         </li>
-        <li class="dir" data-cats="kapelnicy">
+        <li class="dir">
           <a href="uslugi.html#kapelnicy"><h3>Капельницы</h3><i class="dots"></i><p>Витаминные, восстанавливающие и детокс-программы — по назначению врача</p><span class="price"></span></a>
         </li>
-        <li class="dir" data-cats="epilyaciya">
+        <li class="dir">
           <a href="uslugi.html#epilyaciya"><h3>Лазерная эпиляция</h3><i class="dots"></i><p>Диодный лазер Diolaze XL, отдельные зоны и комплексы</p><span class="price"></span></a>
         </li>
       </ul>
@@ -148,8 +147,8 @@
   <section class="band offers" id="kompleksy" aria-labelledby="offers-title">
     <div class="wrap">
       <div class="offer-card">
-        <h2 class="h2" id="offers-title">Комплексы сезона</h2>
-        <p class="lead">Две процедуры за один визит по цене ниже, чем по отдельности. Подходит ли комплекс именно вам, решает врач на консультации.</p>
+        <h2 class="h2" id="offers-title">Программы сезона</h2>
+        <p class="lead">Две процедуры за один визит — выгоднее, чем по отдельности. Подходит ли программа именно вам, решает врач на консультации.</p>
         <ul class="offer-list" data-cat="kompleksy"></ul>
         <p class="offer-foot"><span class="todo">Срок действия предложения: до __.__.2026</span></p>
       </div>
@@ -186,6 +185,26 @@
     </div>
   </section>
 
+  <section class="band" id="voprosy" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div>
+        <h2 class="h2" id="faq-title">Частые вопросы</h2>
+        <p class="lead">Не нашли ответ? <button class="link" type="button" data-lead>Оставьте заявку</button> — администратор перезвонит.</p>
+        <p class="faq-note"><span class="todo">Черновик ответов: согласовать с врачом</span></p>
+      </div>
+      <div class="qa-list">
+        <details class="qa"><summary>Нужна ли консультация перед процедурой?</summary><p>Да. Перед первой процедурой врач проводит консультацию: оценивает состояние кожи или волос, уточняет противопоказания и предлагает план. Консультация длится 40 минут и стоит 4&nbsp;000&nbsp;₽.</p></details>
+        <details class="qa"><summary>Как подготовиться к процедуре?</summary><p>Рекомендации зависят от процедуры, врач даст их на консультации. Обычно: за сутки до инъекций отказаться от алкоголя и сообщить врачу о лекарствах, которые вы принимаете; перед лазерной эпиляцией не загорать две недели и побрить зону за 1–2 дня.</p></details>
+        <details class="qa"><summary>Это больно?</summary><p>Ощущения зависят от процедуры и индивидуальной чувствительности. Для инъекций и большинства аппаратных процедур используют обезболивающий крем, поэтому их переносят спокойно. Если вам некомфортно, процедуру можно приостановить.</p></details>
+        <details class="qa"><summary>Сколько процедур понадобится?</summary><p>Одни процедуры делают однократно, другие — курсом с интервалами в несколько недель. Количество и частоту врач определяет на консультации, исходя из задачи и состояния кожи.</p></details>
+        <details class="qa"><summary>Сколько длится восстановление?</summary><p>После ухода и большинства аппаратных процедур можно сразу вернуться к обычным делам. После инъекций возможны покраснение, отёк или небольшие синяки на несколько дней. Что можно и чего нельзя после процедуры, врач расскажет заранее.</p></details>
+        <details class="qa"><summary>Какие есть противопоказания?</summary><p>Общие: беременность и грудное вскармливание, острые воспаления и инфекции, обострение хронических заболеваний, повреждения кожи в зоне процедуры. У каждой процедуры есть свои — полный перечень врач обсуждает на консультации до начала процедуры.</p></details>
+        <details class="qa"><summary>Как оплатить?</summary><p>Наличными, банковской картой или через СБП. Оплата — после процедуры. <span class="todo">уточнить способы оплаты</span></p></details>
+        <details class="qa"><summary>Как перенести или отменить запись?</summary><p>В онлайн-записи или по телефону, лучше не позднее чем за 24 часа до визита — так время смогут предложить другим пациентам. <span class="todo">уточнить правила отмены</span></p></details>
+      </div>
+    </div>
+  </section>
+
   <section class="band" id="kontakty" aria-labelledby="contacts-title">
     <div class="wrap contacts">
       <div>
@@ -195,12 +214,13 @@
           <a class="btn btn-ghost" href="" data-tg target="_blank" rel="noopener">Написать в Telegram</a>
         </div>
         <div class="award">
-          <svg width="44" height="56" viewBox="0 0 44 56" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 2C11 2 3 10 3 21c0 13 19 33 19 33s19-20 19-33C41 10 33 2 22 2Z"/><circle cx="22" cy="21" r="7"/></svg>
+          <svg width="44" height="56" viewBox="0 0 44 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="20" r="16"/><circle cx="22" cy="20" r="10"/><path d="M13 33l-5 20 9-5 5 6M31 33l5 20-9-5-5 6"/></svg>
           <div><b>«Хорошее место» 2026</b>Награда Яндекс Карт</div>
         </div>
       </div>
       <dl>
         <div><dt>Адрес</dt><dd>Москва, ул. 1812 года, д. 8, корп. 1<br><a class="link" href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%201812%20%D0%B3%D0%BE%D0%B4%D0%B0%2C%208%D0%BA1" target="_blank" rel="noopener">Открыть в Яндекс Картах</a></dd></div>
+        <div><dt>Как добраться</dt><dd><span class="todo">метро ___, ___ минут пешком; парковка ___</span></dd></div>
         <div><dt>Часы работы</dt><dd><span class="todo">ежедневно, 10:00–21:00</span></dd></div>
         <div><dt>Телефон</dt><dd><a href="" data-phone style="text-decoration:none"><span class="todo">+7 (___) ___-__-__</span></a></dd></div>
       </dl>
@@ -215,6 +235,7 @@
       <div>
         <p>Клиника косметологии и трихологии</p>
         <p>Москва, ул. 1812 года, д. 8, корп. 1</p>
+        <p><a href="" data-phone style="text-decoration:none"><span class="todo">+7 (___) ___-__-__</span></a></p>
       </div>
       <ul>
         <li><a class="link" href="uslugi.html">Услуги и цены</a></li>

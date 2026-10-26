@@ -7,16 +7,18 @@
 <title>Услуги и цены — клиника YVE</title>
 <meta name="description" content="Цены на услуги клиники YVE: биоревитализация, ботулинотерапия, контурная пластика, аппаратная косметология, трихология, капельницы, лазерная эпиляция. Онлайн-запись.">
 <script src="assets/theme.js"></script>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<a class="skip" href="#main">К содержимому</a>
 
 <header class="header">
   <div class="wrap">
     <a class="logo" href="./" aria-label="YVE, на главную"><b>YVE</b><small>клиника косметологии и трихологии</small></a>
     <nav class="nav" aria-label="Разделы">
       <a href="uslugi.html" aria-current="page">Услуги и цены</a>
-      <a href="./#kompleksy">Комплексы</a>
+      <a href="./#kompleksy">Программы</a>
       <a href="./#vrach">Врач</a>
       <a href="./#vizit">Первый визит</a>
       <a href="./#kontakty">Контакты</a>
@@ -25,24 +27,27 @@
       <summary>Меню</summary>
       <div class="menu-panel">
         <a href="uslugi.html" aria-current="page">Услуги и цены</a>
-        <a href="./#kompleksy">Комплексы</a>
+        <a href="./#kompleksy">Программы</a>
         <a href="./#vrach">Врач</a>
         <a href="./#vizit">Первый визит</a>
         <a href="./#kontakty">Контакты</a>
+        <a href="" data-phone><span class="todo">+7 (___) ___-__-__</span></a>
       </div>
     </details>
+    <a class="h-phone" href="" data-phone><span class="todo">+7 (___) ___-__-__</span></a>
     <a class="btn" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=" data-book>Записаться</a>
   </div>
 </header>
 
-<main class="wrap">
+<main id="main" class="wrap">
   <div class="page-head">
     <h1>Услуги и цены</h1>
-    <p class="lead">Цены в рублях за одну процедуру. Какие процедуры показаны и сколько их нужно, врач определяет на консультации — первичная консультация 4&nbsp;000&nbsp;₽.</p>
+    <p class="lead">120+ процедур в одной клинике: инъекции, аппараты, уход, волосы, капельницы и лазер. Современные препараты и оборудование, врач, который ведёт вас от консультации до контрольного визита. Всё для вашего спокойствия и красоты.</p>
     <div class="search">
       <label class="visually-hidden" for="q">Найти услугу</label>
-      <input id="q" type="search" placeholder="Найти услугу: например, Novacutan или подмышки" autocomplete="off">
+      <input id="q" type="search" placeholder="Процедура, препарат или зона" autocomplete="off">
     </div>
+    <p class="found" id="found" role="status"></p>
   </div>
 
   <div class="catalog">
@@ -50,10 +55,11 @@
     <div>
       <div id="catalog-list"><noscript><p>Каталог показывается с включённым JavaScript. Полный прейскурант — <a class="link" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=">в онлайн-записи</a>.</p></noscript></div>
       <div class="empty" id="empty" hidden>
-        <p>По запросу «<q></q>» ничего нет. Попробуйте другое слово — название препарата, аппарата или зоны.</p>
+        <p>По запросу <q></q> ничего нет. Попробуйте другое слово — название препарата, аппарата или зоны.</p>
         <button class="btn" type="button">Показать все услуги</button>
+        <p>Не нашли, что искали? <button class="link" type="button" data-lead>Оставьте заявку</button> — администратор перезвонит и подскажет.</p>
       </div>
-      <p class="catalog-note">Прейскурант с наименованиями по номенклатуре медицинских услуг Минздрава России — в разделе <a class="link" href="svedeniya.html#preyskurant">«Сведения о медицинской организации»</a>. Цены в каталоге совпадают с онлайн-записью.</p>
+      <p class="catalog-note">Цены — за одну процедуру. Какие процедуры нужны и сколько, врач определяет на консультации. «Линии», «степы» и «единицы» — это объём работы аппарата или препарата: он зависит от зоны и плана процедуры. Прейскурант с наименованиями по номенклатуре медицинских услуг Минздрава России — в разделе <a class="link" href="svedeniya.html#preyskurant">«Сведения о медицинской организации»</a>. Цены в каталоге совпадают с онлайн-записью.</p>
     </div>
   </div>
 </main>
@@ -65,6 +71,7 @@
       <div>
         <p>Клиника косметологии и трихологии</p>
         <p>Москва, ул. 1812 года, д. 8, корп. 1</p>
+        <p><a href="" data-phone style="text-decoration:none"><span class="todo">+7 (___) ___-__-__</span></a></p>
       </div>
       <ul>
         <li><a class="link" href="uslugi.html">Услуги и цены</a></li>
