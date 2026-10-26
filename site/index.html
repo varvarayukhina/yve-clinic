@@ -94,32 +94,28 @@
     </div>
   </section>
 
-  <section class="find" aria-label="Поиск по услугам и ценам">
-    <div class="wrap">
-      <form class="find-form" action="uslugi.html" role="search">
-        <label class="find-title" for="find-q">Найти процедуру и цену</label>
-        <div class="find-field">
-          <input id="find-q" name="q" type="search" placeholder="Процедура, препарат или зона" autocomplete="off">
-          <button class="btn btn-solid" type="submit">Найти</button>
-        </div>
-      </form>
-      <ul class="find-results" aria-live="polite"></ul>
-      <p class="find-tags">Например:
-        <a href="uslugi.html?q=чистка">чистка лица</a>
-        <a href="uslugi.html?q=пилинг">пилинг</a>
-        <a href="uslugi.html?q=SMAS">SMAS-лифтинг</a>
-        <a href="uslugi.html?q=эпиляция">лазерная эпиляция</a>
-        <a href="uslugi.html?q=капельница">капельницы</a>
-      </p>
-      <p class="find-help">Не знаете, что выбрать? <button class="link" type="button" data-lead>Оставьте заявку</button> — администратор перезвонит и поможет.</p>
-    </div>
-  </section>
-
   <section class="band" id="napravleniya" aria-labelledby="dirs-title">
     <div class="wrap">
       <div class="dirs-head">
         <h2 class="h2" id="dirs-title">Направления</h2>
-        <p class="lead">Шесть направлений клиники. Полный перечень процедур с ценами и длительностью — в каталоге, запись — онлайн.</p>
+        <p class="lead">Полный перечень процедур с ценами — в каталоге. Не знаете, что выбрать? <button class="link" type="button" data-lead>Оставьте заявку</button> — администратор перезвонит и поможет.</p>
+      </div>
+      <div class="find">
+        <form class="find-form" action="uslugi.html" role="search">
+          <label class="visually-hidden" for="find-q">Найти процедуру и цену</label>
+          <div class="find-field">
+            <input id="find-q" name="q" type="search" placeholder="Процедура, препарат или зона" autocomplete="off">
+            <button class="btn btn-solid" type="submit">Найти</button>
+          </div>
+        </form>
+        <ul class="find-results" aria-live="polite"></ul>
+        <p class="find-tags">Популярное:
+          <a href="uslugi.html?q=увеличение губ">увеличение губ</a>
+          <a href="uslugi.html?q=биоревитализация">биоревитализация</a>
+          <a href="uslugi.html?q=ботулинотерапия">ботулинотерапия</a>
+          <a href="uslugi.html?q=чистка лица">чистка лица</a>
+          <a href="uslugi.html?q=лазерная эпиляция">лазерная эпиляция</a>
+        </p>
       </div>
       <ul class="dirs">
         <li class="dir">
@@ -174,14 +170,17 @@
 
   <section class="band dark" id="vizit" aria-labelledby="visit-title">
     <div class="wrap">
-      <h2 class="h2" id="visit-title">Как проходит первый визит</h2>
+      <div class="visit-intro">
+        <h2 class="h2" id="visit-title">Первый визит&nbsp;— знакомство, а&nbsp;не&nbsp;продажа</h2>
+        <p class="lead">Мы не предлагаем процедуры с порога. Сначала врач узнаёт вас: кожу, образ жизни, привычки и то, что вам в себе нравится. Иногда лучшее решение — изменить уход, а не делать процедуру.</p>
+        <a class="btn btn-solid" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=" data-book>Записаться на консультацию</a>
+      </div>
       <ol class="steps">
-        <li class="step"><h3>Консультация</h3><p>Врач изучает состояние кожи или волос, собирает анамнез и отвечает на вопросы. 40 минут, 4&nbsp;000&nbsp;₽.</p></li>
-        <li class="step"><h3>План</h3><p>Если процедуры показаны, врач предлагает план: что, в каком порядке и с какими интервалами. Противопоказания обсуждаются до начала.</p></li>
-        <li class="step"><h3>Процедура</h3><p>В выбранный день, после подписания информированного добровольного согласия.</p></li>
-        <li class="step"><h3>Наблюдение</h3><p>Рекомендации по домашнему уходу и контрольный визит, если он нужен.</p></li>
+        <li class="step"><h3>Знакомство</h3><p>40 минут без спешки. Врач расспрашивает о самочувствии, уходе и о том, что хочется изменить, а что, наоборот, сохранить. Консультация — 4&nbsp;000&nbsp;₽.</p></li>
+        <li class="step"><h3>Ваши особенности</h3><p>Врач внимательно изучает кожу или кожу головы и волосы: тип, чувствительность и то, что стоит подчеркнуть, а не исправлять.</p></li>
+        <li class="step"><h3>Честный план</h3><p>Если процедуры действительно нужны, врач объяснит, какие, зачем и в каком порядке. Если не нужны — так и скажет. Решение всегда за вами.</p></li>
+        <li class="step"><h3>Рядом и после</h3><p>Процедура — в удобный день, после информированного добровольного согласия. Затем рекомендации по домашнему уходу и контрольный визит.</p></li>
       </ol>
-      <a class="btn btn-solid" href="https://n1676841.yclients.ru/company/1501872/personal/menu?o=" data-book>Записаться на консультацию</a>
     </div>
   </section>
 

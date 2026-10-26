@@ -96,10 +96,11 @@
   --hero-btn-bg: #ffffff; --hero-btn-fg: #131b2e;
   --deep-bg: #1c2d57; --deep-ink: #f6f4ef; --deep-muted: #dfe3ee; --deep-line: rgba(246, 244, 239, .28); --deep-accent: #d8c49c;
   --intro-bg: #fbfaf7; --intro-ink: #1c2d57;
-  --display: 'Noto Serif Display', Georgia, serif; --dw: 400; --dt: -.01em;
-  --caps: 'Tenor Sans', 'IBM Plex Sans', sans-serif;
-  --body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; --bw: 400; --bsize: 18px;
-  --svc-font: 'Noto Serif Display', Georgia, serif; --svc-style: italic; --svc-w: 400;
+  --big: 'Noto Serif Display', Georgia, serif;
+  --display: 'Noto Serif', Georgia, serif; --dw: 500; --dt: -.005em;
+  --caps: 'Tenor Sans', 'Jost', sans-serif;
+  --body: 'Jost', 'Helvetica Neue', Arial, sans-serif; --bw: 450; --bsize: 18px;
+  --svc-font: 'Noto Serif', Georgia, serif; --svc-style: italic; --svc-w: 500;
   --r: 2px; --r-lg: 2px; --btn-r: 999px;
   --h1: min(12cqi, 96px); --h2: clamp(38px, 4.8vw, 66px); --h3: clamp(28px, 3vw, 40px);
 }
@@ -312,7 +313,7 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 }
 
 /* ---------- Направления ---------- */
-.dirs-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26em); gap: 24px 64px; align-items: end; margin-bottom: clamp(40px, 6vw, 72px); }
+.dirs-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26em); gap: 24px 64px; align-items: end; margin-bottom: clamp(28px, 4vw, 44px); }
 .dirs { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
 .dir a {
   display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto; grid-template-areas: "name desc price"; gap: 10px 48px; align-items: baseline;
@@ -492,10 +493,8 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 .book-alt { flex: none; padding: 14px 24px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); font-size: 16px; }
 @media (max-width: 600px) { .book { border-radius: 0; height: 100dvh; } }
 
-/* ---------- Поиск на главной ---------- */
-.find { padding-block: clamp(48px, 6vw, 80px) clamp(40px, 5vw, 64px); border-bottom: 1px solid var(--line); }
-.find > .wrap > * { max-width: 760px; }
-.find-title { display: block; margin-bottom: 20px; font: var(--dw) var(--h3)/1.1 var(--display); letter-spacing: var(--dt); }
+/* ---------- Поиск на главной (внутри «Направлений») ---------- */
+.find { max-width: 760px; margin-bottom: clamp(36px, 5vw, 56px); }
 .find-field { display: flex; gap: 10px; }
 .find-field input { flex: 1; min-width: 0; }
 .find-field .btn { height: 60px; flex: none; }
@@ -505,10 +504,9 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 .find-results small { display: block; margin-top: 2px; font-size: 16px; color: var(--muted); }
 .find-results b { font-weight: 600; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .find-results .more, .find-results .none { padding-top: 14px; font-size: 17px; }
-.find-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; font-size: 16px; color: var(--muted); }
+.find-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; font-size: 16px; color: var(--muted); }
 .find-tags a { padding: 7px 14px; border: 1.5px solid var(--line); border-radius: var(--btn-r); color: var(--ink); text-decoration: none; transition: border-color .3s; }
 .find-tags a:hover { border-color: var(--ink); }
-.find-help { margin-top: 22px; font-size: 17px; }
 @media (max-width: 560px) { .find-field { flex-direction: column; } }
 
 /* ---------- Заявка «Помочь с выбором» ---------- */
@@ -641,7 +639,10 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 @keyframes hero-zoom { from { transform: scale(1.09); } }
 [data-theme="v6"] .hero-grid { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; align-items: center; padding-top: 150px; padding-bottom: clamp(36px, 5vw, 64px); }
 [data-theme="v6"] .hero-copy { width: min(100%, 1040px); }
+[data-theme="v6"] .hero h1, [data-theme="v6"] .h2, [data-theme="v6"] .page-head h1, [data-theme="v6"] .dir h3, [data-theme="v6"] .grp-title { font-family: var(--big); font-weight: 400; letter-spacing: -.01em; }
 [data-theme="v6"] .hero h1 { line-height: 1; }
+[data-theme="v6"] .offer .price { font: 500 clamp(26px, 2.6vw, 34px) var(--body); color: var(--ink); }
+[data-theme="v6"] .svc .price { font: 500 21px var(--body); color: var(--ink); }
 [data-theme="v6"] .hero h1 > span:first-child { font-style: italic; }
 [data-theme="v6"] .hero h1 > span:nth-child(2) { margin-top: .3em; font: 400 clamp(22px, 4.6cqi, 50px)/1.1 var(--caps); letter-spacing: .16em; margin-right: -.16em; text-transform: uppercase; }
 [data-theme="v6"] .hero-text { margin-inline: auto; max-width: 30em; font-weight: 400; text-shadow: 0 1px 18px rgba(0, 0, 0, .35); }
@@ -650,6 +651,37 @@ button.link { padding: 0; border: 0; background: none; font: inherit; color: inh
 [data-theme="v6"]:not(.no-intro) .hero { --d0: 2.15s; }
 [data-theme="v6"]:not(.no-intro) .hero h1 > span > span { --d: 1.95s; }
 [data-theme="v6"]:not(.no-intro) .hero h1 > span:nth-child(2) > span { --d: 2.05s; }
+
+/* v6: первый визит — шаги ложатся стопкой при прокрутке (stacking cards), слева закреплён заголовок */
+[data-theme="v6"] .dark > .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px clamp(40px, 6vw, 110px); align-items: start; }
+[data-theme="v6"] .visit-intro { position: sticky; top: 120px; }
+[data-theme="v6"] .visit-intro .lead { margin-top: 24px; }
+[data-theme="v6"] .visit-intro .btn { margin-top: 36px; }
+[data-theme="v6"] .steps { margin: 0; overflow: visible; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+[data-theme="v6"] .step {
+  position: sticky; top: calc(120px + var(--i, 0) * 26px); min-height: min(52vh, 420px); padding: clamp(32px, 4vw, 52px);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 14px;
+  background: color-mix(in srgb, var(--deep-bg) calc(100% - var(--i, 0) * 5%), #f6f4ef); border: 1px solid var(--deep-line); border-radius: 2px;
+  box-shadow: 0 -24px 48px -28px rgba(0, 0, 0, .55);
+}
+[data-theme="v6"] .step::before { position: absolute; top: clamp(28px, 3.4vw, 44px); left: clamp(32px, 4vw, 52px); margin: 0; font: italic 400 clamp(56px, 6vw, 88px)/1 var(--big); color: var(--deep-accent); }
+[data-theme="v6"] .step::after { display: none; }
+[data-theme="v6"] .step h3 { font: italic 500 clamp(30px, 3vw, 42px)/1.1 var(--display); }
+[data-theme="v6"] .step p { margin: 0; max-width: 32em; font-size: 18px; font-weight: 400; }
+@media (max-width: 860px) {
+  [data-theme="v6"] .dark > .wrap { grid-template-columns: minmax(0, 1fr); }
+  [data-theme="v6"] .visit-intro { position: static; }
+  [data-theme="v6"] .step { top: calc(90px + var(--i, 0) * 18px); min-height: 340px; }
+}
+
+/* v1 «Олива»: справа фото на природе, текст слева */
+[data-theme="v1"] .hero::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 44%; z-index: -1; background: linear-gradient(180deg, rgba(24, 23, 14, .5), transparent 22%), url(../img/hero-olive.jpg) center 30% / cover; }
+[data-theme="v1"] .hero-copy { max-width: 54%; }
+@media (max-width: 860px) {
+  [data-theme="v1"] .hero::after { left: 0; width: auto; bottom: auto; height: 52svh; background-position: center 25%; }
+  [data-theme="v1"] .hero-grid { padding-top: calc(52svh + 32px); }
+  [data-theme="v1"] .hero-copy { max-width: none; }
+}
 
 /* v6: заставка — подпись YVE одной линией */
 .intro-sig { display: none; }
